@@ -1,0 +1,103 @@
+---
+# The vendor documents this driver was written against (handbook ADR-0019), and where the driver relies on them.
+# Never commit a PDF: `sha256` identifies the exact file that was used, so a reader can confirm they hold the same
+# revision. `pdf` is a stable direct link when the vendor publishes one (page links are built from it, adding
+# `page_offset` when the printed page numbers differ from the PDF's); otherwise readers download from `url`.
+#
+# The README card, docs/datasheet.md and the "Datasheet" box on each page are generated from this file by
+# tools/docs/generators/datasheet.py (`kokeb-docs gen`).
+documents:
+  - id: ds
+    vendor: Microchip (Atmel)
+    title: AT25010B, AT25020B, AT25040B SPI Serial EEPROM
+    kind: Datasheet
+    number: Atmel-8707
+    revision: F
+    date: 2015-01
+    url: https://www.microchip.com/en-us/product/AT25040B
+    pdf: https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf
+    page_offset: 0
+    sha256: 4783c65c38abe35ea0950a9918d02df63c592a30fd841f52d2d3233221d606b0
+
+# One row per thing the driver takes from a document: the datasheet's own section names and printed page
+# numbers, the driver API that implements it, and the docs pages that explain it (file names in docs/).
+topics:
+  - topic: Array sizes, page size, write cycle and endurance
+    doc: ds
+    section: Features; Description
+    page: 1
+    driver: "`Variant`, `CapacityBytes()`, `kPageSizeBytes`"
+    docs: [hardware, configuration]
+  - topic: Pins and packages
+    doc: ds
+    section: 1 Pin Configurations, Table 1-1
+    page: 2
+    driver: "`CtrlPin::WriteProtect`"
+    docs: [hardware, quickstart]
+  - topic: Supply voltage and current
+    doc: ds
+    section: 4.2 DC Characteristics, Table 4-2
+    page: 4
+    driver: "-"
+    docs: [hardware]
+  - topic: SPI clock, CS timing and the write cycle time
+    doc: ds
+    section: 4.3 AC Characteristics, Table 4-3
+    page: 5
+    driver: "`kMaxClockHz`, `kMinCsHighNs`, `kCsSetupNs`, `kCsHoldNs`, `kDataSetupNs`, `kDataHoldNs`,
+      `BusTimingAt()`, `kWriteCycleMaxUs`, `Config::write_timeout_us`"
+    docs: [hardware, porting, configuration]
+  - topic: SPI modes, invalid opcodes, HOLD and the WP pin
+    doc: ds
+    section: 5 Serial Interface Description
+    page: 6
+    driver: "`kSpiMode`, `kMsbFirst`, `SpiInterface`, `GpioSet()`, `CtrlPin::WriteProtect`, `Error::Pin`"
+    docs: [hardware, porting, troubleshooting]
+  - topic: Instruction set and A8 in the opcode
+    doc: ds
+    section: 6 Functional Description, Table 6-1
+    page: 8
+    driver: "`inc/at25040b_registers.hpp`, `detail::EepromBus`"
+    docs: [hardware, architecture]
+  - topic: Write enable latch, WREN and WRDI
+    doc: ds
+    section: 6 Functional Description, Write Enable (WREN), Write Disable (WRDI)
+    page: 8
+    driver: "`EnsureInitialized()`, `Write()`, `Error::WriteProtected`"
+    docs: [contract, api-guide, troubleshooting]
+  - topic: Status register, RDY and the all-ones status of a write cycle
+    doc: ds
+    section: 6 Functional Description, Tables 6-2 and 6-3
+    page: 8
+    driver: "`ReadStatus()`, `ReadRawStatus()`, `Status`, `EnsureInitialized()`, `Error::NoDevice`, `Error::BusNoise`"
+    docs: [hardware, contract, troubleshooting]
+  - topic: Block write protection (BP1, BP0)
+    doc: ds
+    section: 6 Functional Description, Write Status Register (WRSR), Table 6-4
+    page: 9
+    driver: "`SetBlockProtection()`, `GetBlockProtection()`, `ProtectedFrom()`, `Error::BlockProtected`"
+    docs: [api-guide, hardware]
+  - topic: Sequential read and roll-over
+    doc: ds
+    section: 6 Functional Description, Read Sequence (READ)
+    page: 9
+    driver: "`Read()`, `kReadChunkBytes`"
+    docs: [api-guide, architecture]
+  - topic: Page write, the page wrap and the self-timed write cycle
+    doc: ds
+    section: 6 Functional Description, Write Sequence (WRITE)
+    page: 9
+    driver: "`Write()`, `Error::Timeout`, `Error::WriteMismatch`"
+    docs: [api-guide, architecture, contract]
+  - topic: Instruction timing
+    doc: ds
+    section: 7 Timing Diagrams, Figures 7-1 to 7-8
+    page: 10
+    driver: "`detail::EepromBus`"
+    docs: [hardware, porting]
+  - topic: Ordering codes and part markings
+    doc: ds
+    section: 8 Ordering Code Detail; 9 Part Markings
+    page: 13
+    driver: "`Config::variant`"
+    docs: [hardware]

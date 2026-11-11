@@ -1,0 +1,84 @@
+{
+  "steps": [
+    {
+      "title": "Check the Config, bring the bus up, park WP",
+      "detail": "No transfer before Validate() passes",
+      "errors": [
+        "InvalidArgument"
+      ]
+    },
+    {
+      "title": "(a) Status until idle, confirmed",
+      "detail": "0xFF waits; bits 7 to 4 or RDY set: not a status",
+      "errors": [
+        "BusNoise",
+        "DeviceIdMismatch",
+        "NoDevice"
+      ]
+    },
+    {
+      "title": "(b) WEN must follow WREN and WRDI",
+      "detail": "WP released for it, parked after; nothing written",
+      "errors": [
+        "DeviceIdMismatch",
+        "BusNoise"
+      ]
+    },
+    {
+      "title": "or: the first 8 bytes, twice",
+      "detail": "Only with check_write_enable = false (WP tied low)",
+      "errors": [
+        "BusNoise"
+      ]
+    }
+  ],
+  "faults": [
+    {
+      "key": "Miso::FloatHigh",
+      "fault": "MISO floating high: module unplugged",
+      "shows": "Status 0xFF for the whole timeout",
+      "error": "NoDevice",
+      "status": "0xFF",
+      "test": "MISO floating high (module unplugged) is NoDevice after the write cycle timeout"
+    },
+    {
+      "key": "Miso::StuckLow",
+      "fault": "MISO stuck low or pulled low",
+      "shows": "Status 0x00, but WEN never reads 1",
+      "error": "DeviceIdMismatch",
+      "status": "0x00",
+      "test": "MISO stuck low (an idle-looking 0x00) fails the write enable toggle"
+    },
+    {
+      "key": "Miso::EchoMosi",
+      "fault": "MOSI echoed on MISO",
+      "shows": "Status 0x05, the RDSR opcode: RDY set",
+      "error": "DeviceIdMismatch",
+      "status": "0x05",
+      "test": "MOSI echoed on MISO reads status 0x05 and is DeviceIdMismatch"
+    },
+    {
+      "key": "hold_tied_to_cs",
+      "fault": "HOLD strapped to CS",
+      "shows": "SO stays high impedance: status 0xFF",
+      "error": "NoDevice",
+      "status": "",
+      "test": "HOLD strapped to CS (section 5) makes the status read 0xFF: NoDevice"
+    },
+    {
+      "key": "wp_tied_low",
+      "fault": "WP held low on the board",
+      "shows": "Status 0x00, WREN ignored: WEN stays 0",
+      "error": "DeviceIdMismatch",
+      "status": "",
+      "test": "WP tied low fails the toggle; check_write_enable = false starts it read-only"
+    }
+  ],
+  "sources": [
+    "src/at25040b.ipp:initialize",
+    "src/at25040b.ipp:checkWriteEnableToggle",
+    "src/at25040b.ipp:checkStableHead",
+    "src/at25040b.ipp:waitIdle",
+    "tests/test_at25040b.cpp:start-up fault tests"
+  ]
+}

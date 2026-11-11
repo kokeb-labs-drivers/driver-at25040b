@@ -1,0 +1,99 @@
+{
+  "top": [
+    {
+      "title": "Check the range",
+      "detail": "Inside the variant's array, length at least 1",
+      "errors": [
+        "NotInitialized",
+        "InvalidArgument"
+      ],
+      "tone": "slate"
+    },
+    {
+      "title": "Read the status until idle",
+      "detail": "Confirmed by a second read; waits out a running cycle",
+      "errors": [
+        "BusNoise",
+        "Timeout"
+      ],
+      "tone": "slate"
+    },
+    {
+      "title": "Refuse a protected range",
+      "detail": "From BP1:BP0 (Table 6-4); nothing else is sent",
+      "errors": [
+        "BlockProtected"
+      ],
+      "tone": "slate"
+    },
+    {
+      "title": "Release WP",
+      "detail": "GpioSet(WriteProtect, INACTIVE), when the port has it",
+      "errors": [
+        "Pin"
+      ],
+      "tone": "slate"
+    }
+  ],
+  "page": [
+    {
+      "title": "WREN, then read the status",
+      "detail": "WEN must read 1",
+      "errors": [
+        "BusNoise",
+        "WriteProtected"
+      ],
+      "tone": "teal"
+    },
+    {
+      "title": "WRITE",
+      "detail": "Opcode with A8, address byte, 1 to 8 bytes",
+      "errors": [],
+      "tone": "teal"
+    },
+    {
+      "title": "Wait for the write cycle",
+      "detail": "Status every 100 us, up to write_timeout_us",
+      "errors": [
+        "Timeout"
+      ],
+      "tone": "teal"
+    },
+    {
+      "title": "WEN must be 0 again",
+      "detail": "Still 1: the chip ignored the WRITE",
+      "errors": [
+        "WriteMismatch"
+      ],
+      "tone": "teal"
+    },
+    {
+      "title": "Read the page back",
+      "detail": "Only with Verify::ReadBack",
+      "errors": [
+        "WriteMismatch"
+      ],
+      "tone": "teal"
+    }
+  ],
+  "end": [
+    {
+      "title": "Park WP",
+      "detail": "After the last page or the first failure; WRDI after a failure",
+      "errors": [
+        "Pin"
+      ],
+      "tone": "slate"
+    }
+  ],
+  "page_bytes": 8,
+  "sources": [
+    "src/at25040b.ipp:Write",
+    "src/at25040b.ipp:writeRange",
+    "src/at25040b.ipp:writePage",
+    "src/at25040b.ipp:enableWrite",
+    "src/at25040b.ipp:finishWriteCycle",
+    "src/at25040b.ipp:waitIdle",
+    "src/at25040b.ipp:withWriteAccess"
+  ]
+}

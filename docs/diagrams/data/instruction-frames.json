@@ -1,0 +1,103 @@
+{
+  "rows": [
+    {
+      "name": "WREN",
+      "opcode": 6,
+      "bytes": [
+        [
+          "op",
+          ""
+        ]
+      ],
+      "reply": null
+    },
+    {
+      "name": "WRDI",
+      "opcode": 4,
+      "bytes": [
+        [
+          "op",
+          ""
+        ]
+      ],
+      "reply": null
+    },
+    {
+      "name": "RDSR",
+      "opcode": 5,
+      "bytes": [
+        [
+          "op",
+          ""
+        ],
+        [
+          "status",
+          ""
+        ]
+      ],
+      "reply": 1
+    },
+    {
+      "name": "WRSR",
+      "opcode": 1,
+      "bytes": [
+        [
+          "op",
+          ""
+        ],
+        [
+          "value",
+          ""
+        ]
+      ],
+      "reply": null
+    },
+    {
+      "name": "READ",
+      "opcode": 3,
+      "bytes": [
+        [
+          "op",
+          "a8"
+        ],
+        [
+          "addr",
+          ""
+        ],
+        [
+          "data",
+          ""
+        ]
+      ],
+      "reply": 2,
+      "max": 16
+    },
+    {
+      "name": "WRITE",
+      "opcode": 2,
+      "bytes": [
+        [
+          "op",
+          "a8"
+        ],
+        [
+          "addr",
+          ""
+        ],
+        [
+          "data",
+          ""
+        ]
+      ],
+      "reply": null,
+      "max": 8
+    }
+  ],
+  "a8_bit": 3,
+  "max_transfer": 18,
+  "sources": [
+    "inc/at25040b_registers.hpp:opcodes",
+    "inc/at25040b_spi_interface.hpp:detail::EepromBus",
+    "inc/at25040b_types.hpp:kReadChunkBytes"
+  ]
+}

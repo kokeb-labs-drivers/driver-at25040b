@@ -1,0 +1,46 @@
+# Kconfig for the AT25040B driver. The root CMakeLists.txt registers it with ESP-IDF
+# (idf_component_register(... KCONFIG _config/Kconfig)), so `idf.py menuconfig` shows
+# "AT25010B / AT25020B / AT25040B SPI EEPROM". The values reach the code only through
+# inc/at25040b_kconfig.hpp; no public driver signature uses them.
+menuconfig AT25040B
+    bool "AT25010B / AT25020B / AT25040B SPI EEPROM"
+    default y
+    help
+      Defaults for at25040b::KconfigDefaults(). The driver itself does not
+      need Kconfig; outside ESP-IDF the same defaults come from Config{}.
+
+if AT25040B
+
+choice AT25040B_VARIANT
+    prompt "Part fitted"
+    default AT25040B_VARIANT_AT25040B
+    help
+      Config::variant. The chip cannot report its size; every address is
+      checked against the part chosen here.
+
+config AT25040B_VARIANT_AT25010B
+    bool "AT25010B (128 bytes)"
+config AT25040B_VARIANT_AT25020B
+    bool "AT25020B (256 bytes)"
+config AT25040B_VARIANT_AT25040B
+    bool "AT25040B (512 bytes)"
+
+endchoice
+
+config AT25040B_SKIP_WRITE_ENABLE_CHECK
+    bool "Skip the write enable toggle at start-up (WP tied low)"
+    default n
+    help
+      Config::check_write_enable = false. The toggle runs once, at start-up,
+      never on a read or a write, and is what catches a dead bus. Only for a
+      board whose WP pin is tied low: the start-up check then reads the first
+      8 bytes twice, which a dead bus with MISO stuck low also passes.
+
+config AT25040B_WRITE_TIMEOUT_US
+    int "Write cycle timeout (us)"
+    range 5000 1000000
+    default 10000
+    help
+      Config::write_timeout_us. t_WC is 5 ms at most (datasheet Table 4-3).
+
+endif

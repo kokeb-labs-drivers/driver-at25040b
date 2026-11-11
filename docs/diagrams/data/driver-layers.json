@@ -1,0 +1,25 @@
+{
+  "name": "at25040b",
+  "cls": "AT25040B",
+  "calls": [
+    "EnsureInitialized",
+    "Deinitialize",
+    "ApplyConfig",
+    "Read",
+    "Write",
+    "ReadStatus",
+    "GetBlockProtection",
+    "SetBlockProtection",
+    "ReadRawStatus"
+  ],
+  "sources": [
+    "inc/at25040b.hpp:public calls",
+    "inc/at25040b_spi_interface.hpp:SpiInterface"
+  ],
+  "bus": "SPI",
+  "base": "SpiInterface",
+  "hooks": [
+    "EnsureInitialized",
+    "Transfer"
+  ]
+}

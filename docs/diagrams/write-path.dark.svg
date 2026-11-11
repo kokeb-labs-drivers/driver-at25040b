@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1341" viewBox="0 0 1200 1341" role="img" aria-labelledby="write-path-title write-path-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="write-path-title">Write(), step by step</title>
+<desc id="write-path-desc">Flowchart of Write: check the range, read the status until idle, refuse a block-protected range, release WP, then per 8-byte page WREN and a WEN check, WRITE, the write cycle wait, a WEN check and a read-back; WP is parked at the end, and each step names the error it can return.</desc>
+<defs><marker id="fk-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6C7889"/></marker></defs>
+<rect x="0.5" y="0.5" width="1199" height="1340" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="44" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#F8D27A">API GUIDE</text>
+<text x="32" y="77.3" font-size="26" font-weight="700" fill="#E8EDF3">Write(), step by step</text>
+<text x="32" y="103.8" font-size="15" fill="#9AA6B5">One card per step. A pill names the error the step adds; every transfer can also fail with Bus.</text>
+<rect x="32" y="119.8" width="1136" height="1" fill="#252F3C"/>
+<rect x="32" y="533.8" width="620" height="545.4" rx="14" fill="#0F2A28" stroke="#215A54" stroke-width="1.2"/>
+<path d="M566 210.8 L566 232.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M566 309.8 L566 331.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M566 408.8 L566 430.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M566 507.8 L566 592.2" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M566 669.2 L566 691.2" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M566 768.2 L566 790.2" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M566 867.2 L566 889.2" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M566 966.2 L566 988.2" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M566 1065.2 L566 1097.2" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<rect x="62" y="137.8" width="560" height="69" rx="10" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="62" y="145.8" width="4" height="53" rx="2" fill="#94A3B8"/>
+<rect x="62" y="236.8" width="560" height="69" rx="10" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="62" y="244.8" width="4" height="53" rx="2" fill="#94A3B8"/>
+<rect x="62" y="335.8" width="560" height="69" rx="10" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="62" y="343.8" width="4" height="53" rx="2" fill="#94A3B8"/>
+<rect x="62" y="434.8" width="560" height="69" rx="10" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="62" y="442.8" width="4" height="53" rx="2" fill="#94A3B8"/>
+<rect x="62" y="596.2" width="560" height="69" rx="10" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<rect x="62" y="604.2" width="4" height="53" rx="2" fill="#2BB3A3"/>
+<rect x="62" y="695.2" width="560" height="69" rx="10" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<rect x="62" y="703.2" width="4" height="53" rx="2" fill="#2BB3A3"/>
+<rect x="62" y="794.2" width="560" height="69" rx="10" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<rect x="62" y="802.2" width="4" height="53" rx="2" fill="#2BB3A3"/>
+<rect x="62" y="893.2" width="560" height="69" rx="10" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<rect x="62" y="901.2" width="4" height="53" rx="2" fill="#2BB3A3"/>
+<rect x="62" y="992.2" width="560" height="69" rx="10" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<rect x="62" y="1000.2" width="4" height="53" rx="2" fill="#2BB3A3"/>
+<rect x="62" y="1101.2" width="560" height="69" rx="10" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="62" y="1109.2" width="4" height="53" rx="2" fill="#94A3B8"/>
+<rect x="32" y="1200.2" width="1136" height="79.3" rx="10" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="82" y="164.6" font-size="15" font-weight="700" fill="#E2E8F0">Check the range</text>
+<text x="82" y="189.4" font-size="13" fill="#D2DAE4">Inside the variant's array, length at least 1</text>
+<text x="82" y="263.6" font-size="15" font-weight="700" fill="#E2E8F0">Read the status until idle</text>
+<text x="82" y="288.4" font-size="13" fill="#D2DAE4">Confirmed by a second read; waits out a running cycle</text>
+<text x="82" y="362.6" font-size="15" font-weight="700" fill="#E2E8F0">Refuse a protected range</text>
+<text x="82" y="387.4" font-size="13" fill="#D2DAE4">From BP1:BP0 (Table 6-4); nothing else is sent</text>
+<text x="82" y="461.6" font-size="15" font-weight="700" fill="#E2E8F0">Release WP</text>
+<text x="82" y="486.4" font-size="13" fill="#D2DAE4">GpioSet(WriteProtect, INACTIVE), when the port has it</text>
+<text x="82" y="623" font-size="15" font-weight="700" fill="#A7F3E6">WREN, then read the status</text>
+<text x="82" y="647.8" font-size="13" fill="#D2DAE4">WEN must read 1</text>
+<text x="82" y="722" font-size="15" font-weight="700" fill="#A7F3E6">WRITE</text>
+<text x="82" y="746.8" font-size="13" fill="#D2DAE4">Opcode with A8, address byte, 1 to 8 bytes</text>
+<text x="82" y="821" font-size="15" font-weight="700" fill="#A7F3E6">Wait for the write cycle</text>
+<text x="82" y="845.8" font-size="13" fill="#D2DAE4">Status every 100 us, up to write_timeout_us</text>
+<text x="82" y="920" font-size="15" font-weight="700" fill="#A7F3E6">WEN must be 0 again</text>
+<text x="82" y="944.8" font-size="13" fill="#D2DAE4">Still 1: the chip ignored the WRITE</text>
+<text x="82" y="1019" font-size="15" font-weight="700" fill="#A7F3E6">Read the page back</text>
+<text x="82" y="1043.8" font-size="13" fill="#D2DAE4">Only with Verify::ReadBack</text>
+<text x="48" y="558.8" font-size="13" font-weight="700" fill="#A7F3E6">FOR EACH 8-BYTE PAGE</text>
+<text x="48" y="576.2" font-size="12" fill="#A7F3E6">A WRITE never crosses a page: the address wraps inside it</text>
+<text x="82" y="1128" font-size="15" font-weight="700" fill="#E2E8F0">Park WP</text>
+<text x="82" y="1152.8" font-size="13" fill="#D2DAE4">After the last page or the first failure; WRDI after a failure</text>
+<rect x="672" y="147.8" width="94.9" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="162.2" font-size="11.5" font-weight="700" fill="#FECDD3">NotInitialized</text>
+<rect x="774.9" y="147.8" width="115.5" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="782.9" y="162.2" font-size="11.5" font-weight="700" fill="#FECDD3">InvalidArgument</text>
+<rect x="672" y="246.8" width="72.6" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="261.2" font-size="11.5" font-weight="700" fill="#FECDD3">BusNoise</text>
+<rect x="752.6" y="246.8" width="65.4" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="760.6" y="261.2" font-size="11.5" font-weight="700" fill="#FECDD3">Timeout</text>
+<rect x="672" y="345.8" width="107.7" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="360.2" font-size="11.5" font-weight="700" fill="#FECDD3">BlockProtected</text>
+<rect x="672" y="444.8" width="34.8" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="459.2" font-size="11.5" font-weight="700" fill="#FECDD3">Pin</text>
+<rect x="672" y="606.2" width="72.6" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="620.6" font-size="11.5" font-weight="700" fill="#FECDD3">BusNoise</text>
+<rect x="752.6" y="606.2" width="107.3" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="760.6" y="620.6" font-size="11.5" font-weight="700" fill="#FECDD3">WriteProtected</text>
+<rect x="672" y="804.2" width="65.4" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="818.6" font-size="11.5" font-weight="700" fill="#FECDD3">Timeout</text>
+<rect x="672" y="903.2" width="107.6" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="917.6" font-size="11.5" font-weight="700" fill="#FECDD3">WriteMismatch</text>
+<rect x="672" y="1002.2" width="107.6" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="1016.6" font-size="11.5" font-weight="700" fill="#FECDD3">WriteMismatch</text>
+<rect x="672" y="1111.2" width="34.8" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="680" y="1125.6" font-size="11.5" font-weight="700" fill="#FECDD3">Pin</text>
+<text x="46" y="1227" font-size="15" font-weight="700" fill="#E2E8F0">After a failure</text>
+<text x="46" y="1244.8" font-size="13" fill="#E2E8F0">A failed call has written the pages before the failing one (and verified them); the failing page may hold old, new or partly written data; nothing after it and nothing outside</text>
+<text x="46" y="1263.6" font-size="13" fill="#E2E8F0">the range changes.</text>
+<rect x="32" y="1294.9" width="14" height="14" rx="4" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<text x="54" y="1306.5" font-size="12.5" fill="#9AA6B5">once per call</text>
+<rect x="158.8" y="1294.9" width="14" height="14" rx="4" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<text x="180.8" y="1306.5" font-size="12.5" fill="#9AA6B5">once per page</text>
+<rect x="295.5" y="1294.9" width="14" height="14" rx="4" fill="#321820" stroke="#FB7185" stroke-width="1.4"/>
+<text x="317.5" y="1306.5" font-size="12.5" fill="#9AA6B5">error this step adds</text>
+<path d="M463.5 1301.2L493.5 1301.2" fill="none" stroke="#6C7889" stroke-width="1.6" marker-end="url(#fk-arrow-rail)"/>
+<text x="507.5" y="1306.5" font-size="12.5" fill="#9AA6B5">next step</text>
+</svg>

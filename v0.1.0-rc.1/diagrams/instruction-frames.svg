@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="740" viewBox="0 0 1200 740" role="img" aria-labelledby="instruction-frames-title instruction-frames-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="instruction-frames-title">Six instructions, one transfer each</title>
+<desc id="instruction-frames-desc">Byte layouts of WREN, WRDI, RDSR, WRSR, READ and WRITE: a one-byte opcode, then for RDSR the status byte, for WRSR the value, for READ and WRITE an address byte and data; bit 3 of the READ and WRITE opcodes carries address bit A8 on the AT25040B.</desc>
+<rect x="0.5" y="0.5" width="1199" height="739" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="44" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#7A360E">HARDWARE</text>
+<text x="32" y="77.3" font-size="26" font-weight="700" fill="#0E1726">Six instructions, one transfer each</text>
+<text x="32" y="103.8" font-size="15" fill="#566070">CS low for the whole row, bytes in clock order, most significant bit first.</text>
+<rect x="32" y="119.8" width="1136" height="1" fill="#E2E7EE"/>
+<rect x="152" y="137.8" width="190" height="54" rx="6" fill="#FBEFE6" stroke="#9A4A17" stroke-width="1.2"/>
+<rect x="152" y="213.8" width="190" height="54" rx="6" fill="#FBEFE6" stroke="#9A4A17" stroke-width="1.2"/>
+<rect x="152" y="289.8" width="190" height="54" rx="6" fill="#FBEFE6" stroke="#9A4A17" stroke-width="1.2"/>
+<rect x="352" y="289.8" width="190" height="54" rx="6" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.2"/>
+<rect x="152" y="365.8" width="190" height="54" rx="6" fill="#FBEFE6" stroke="#9A4A17" stroke-width="1.2"/>
+<rect x="352" y="365.8" width="190" height="54" rx="6" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.2"/>
+<rect x="152" y="441.8" width="190" height="54" rx="6" fill="#FBEFE6" stroke="#9A4A17" stroke-width="1.2"/>
+<rect x="352" y="441.8" width="190" height="54" rx="6" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.2"/>
+<rect x="552" y="441.8" width="304" height="54" rx="6" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.2"/>
+<rect x="152" y="517.8" width="190" height="54" rx="6" fill="#FBEFE6" stroke="#9A4A17" stroke-width="1.2"/>
+<rect x="352" y="517.8" width="190" height="54" rx="6" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.2"/>
+<rect x="552" y="517.8" width="304" height="54" rx="6" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.2"/>
+<rect x="32" y="599.8" width="1136" height="79.3" rx="10" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1"/>
+<text x="32" y="170.2" font-size="15" font-weight="700" fill="#0E1726">WREN</text>
+<text x="247" y="159.8" font-size="13" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#7A360E">0000 0110</text>
+<text x="247" y="179.8" font-size="12" text-anchor="middle" fill="#7A360E">0x06</text>
+<text x="32" y="246.2" font-size="15" font-weight="700" fill="#0E1726">WRDI</text>
+<text x="247" y="235.8" font-size="13" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#7A360E">0000 0100</text>
+<text x="247" y="255.8" font-size="12" text-anchor="middle" fill="#7A360E">0x04</text>
+<text x="32" y="322.2" font-size="15" font-weight="700" fill="#0E1726">RDSR</text>
+<text x="247" y="311.8" font-size="13" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#7A360E">0000 0101</text>
+<text x="247" y="331.8" font-size="12" text-anchor="middle" fill="#7A360E">0x05</text>
+<text x="447" y="311.8" font-size="13" font-weight="600" text-anchor="middle" fill="#8A3C0B">status</text>
+<text x="447" y="331.8" font-size="12" text-anchor="middle" fill="#8A3C0B">MISO: the reply</text>
+<text x="32" y="398.2" font-size="15" font-weight="700" fill="#0E1726">WRSR</text>
+<text x="247" y="387.8" font-size="13" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#7A360E">0000 0001</text>
+<text x="247" y="407.8" font-size="12" text-anchor="middle" fill="#7A360E">0x01</text>
+<text x="447" y="387.8" font-size="13" font-weight="600" text-anchor="middle" fill="#0B5F59">0000 BP1 BP0 00</text>
+<text x="447" y="407.8" font-size="12" text-anchor="middle" fill="#0B5F59">the new level</text>
+<text x="32" y="474.2" font-size="15" font-weight="700" fill="#0E1726">READ</text>
+<text x="247" y="463.8" font-size="13" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#7A360E">0000 A011</text>
+<text x="247" y="483.8" font-size="12" text-anchor="middle" fill="#7A360E">0x03, 0x0B with A8</text>
+<text x="447" y="463.8" font-size="13" font-weight="600" text-anchor="middle" fill="#1E429F">A7 ... A0</text>
+<text x="447" y="483.8" font-size="12" text-anchor="middle" fill="#1E429F">address byte</text>
+<text x="704" y="463.8" font-size="13" font-weight="600" text-anchor="middle" fill="#8A3C0B">data, 1 to 16 bytes</text>
+<text x="704" y="483.8" font-size="12" text-anchor="middle" fill="#8A3C0B">MISO: the bytes read</text>
+<text x="32" y="550.2" font-size="15" font-weight="700" fill="#0E1726">WRITE</text>
+<text x="247" y="539.8" font-size="13" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#7A360E">0000 A010</text>
+<text x="247" y="559.8" font-size="12" text-anchor="middle" fill="#7A360E">0x02, 0x0A with A8</text>
+<text x="447" y="539.8" font-size="13" font-weight="600" text-anchor="middle" fill="#1E429F">A7 ... A0</text>
+<text x="447" y="559.8" font-size="12" text-anchor="middle" fill="#1E429F">address byte</text>
+<text x="704" y="539.8" font-size="13" font-weight="600" text-anchor="middle" fill="#0B5F59">data, 1 to 8 bytes</text>
+<text x="704" y="559.8" font-size="12" text-anchor="middle" fill="#0B5F59">inside one 8-byte page</text>
+<text x="46" y="626.5" font-size="15" font-weight="700" fill="#7A360E">A8 and limits</text>
+<text x="46" y="644.4" font-size="13" fill="#7A360E">Bit 3 of the READ and WRITE opcodes is address bit A8 on the AT25040B and a don't-care on the smaller parts, where the driver never sets it. A transfer is at most 18</text>
+<text x="46" y="663.2" font-size="13" fill="#7A360E">bytes. During a write cycle the chip answers only RDSR, with every bit 1.</text>
+<rect x="32" y="694.5" width="14" height="14" rx="4" fill="#FBEFE6" stroke="#9A4A17" stroke-width="1.4"/>
+<text x="54" y="706.2" font-size="12.5" fill="#566070">opcode</text>
+<rect x="125.4" y="694.5" width="14" height="14" rx="4" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="147.4" y="706.2" font-size="12.5" fill="#566070">address A7 to A0</text>
+<rect x="279.4" y="694.5" width="14" height="14" rx="4" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<text x="301.4" y="706.2" font-size="12.5" fill="#566070">data or value</text>
+<rect x="406.7" y="694.5" width="14" height="14" rx="4" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<text x="428.7" y="706.2" font-size="12.5" fill="#566070">reply the driver keeps</text>
+</svg>

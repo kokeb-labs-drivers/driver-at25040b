@@ -1,0 +1,103 @@
+---
+# The chip's hardware in one file: package, pins, the driver hook of each pin, the blocks inside, and a reference
+# circuit. `kokeb-docs figures` draws the pinout, the block diagram and the circuit from it, `kokeb-docs gen` writes
+# the pin and parts tables on docs/hardware.md, and `kokeb-docs hardware --check` validates it.
+# Schema: docs/chip-diagrams.md in kokeb-labs/ci-tools. Every fact cites the datasheet in docs/datasheets.yml
+# (section and printed page); anything the datasheet does not state carries `unverified`.
+schema: 1
+chip: AT25040B
+
+refs:
+  pinout: {doc: ds, section: "1 Pin Configurations, Table 1-1", page: 2}
+  blocks: {doc: ds, section: "3 Block Diagram, Figure 3-1", page: 3}
+  dc: {doc: ds, section: "4.2 DC Characteristics, Table 4-2", page: 4}
+  ac: {doc: ds, section: "4.3 AC Characteristics, Table 4-3", page: 5}
+  serial: {doc: ds, section: "5 Serial Interface Description", page: 6}
+  spi: {doc: ds, section: "5 Serial Interface Description, Figure 5-1", page: 7}
+  status: {doc: ds, section: "6 Functional Description, Tables 6-2 and 6-3", page: 8}
+
+# The 8-lead SOIC and TSSOP share these numbers; the UDFN, XDFN and VFBGA number the same functions 1 to 8.
+package:
+  type: SOIC-8
+  pins: 8
+  ref: pinout
+
+hooks:
+  - {id: transfer, call: "Transfer()", kind: spi, source: inc/at25040b_spi_interface.hpp, symbol: Transfer}
+  - {id: wp, call: "GpioSet(CtrlPin::WriteProtect)", kind: gpio-out, source: inc/at25040b_spi_interface.hpp,
+     symbol: WriteProtect}
+
+pins:
+  - {number: 1, name: CS, type: bus, domain: VCC,
+     function: "Chip select, active low; every instruction starts on its falling edge", hook: transfer, ref: serial}
+  - {number: 2, name: SO, type: bus, domain: VCC,
+     function: "Serial data out (MISO); high impedance while CS is high or HOLD is low", hook: transfer,
+     ref: serial}
+  - {number: 3, name: WP, type: digital-in, domain: VCC,
+     function: "Write protect, active low: low inhibits every write; high allows reads and writes", hook: wp,
+     unused: Tie to VCC, ref: serial}
+  - {number: 4, name: GND, type: ground, function: Ground, ref: pinout}
+  - {number: 5, name: SI, type: bus, domain: VCC, function: "Serial data in (MOSI): opcode, address and data, MSB first",
+     hook: transfer, ref: serial}
+  - {number: 6, name: SCK, type: bus, domain: VCC,
+     function: "Serial clock: 20 MHz max from VCC 4.5 V, 10 MHz from 2.5 V, 5 MHz from 1.8 V", hook: transfer,
+     ref: ac}
+  - {number: 7, name: HOLD, type: digital-in, domain: VCC,
+     function: "Hold, active low: pauses a transfer while SCK is low; the driver never uses it",
+     unused: Tie to VCC, ref: serial}
+  - {number: 8, name: VCC, type: power, domain: VCC, function: "Supply, 1.8 V to 5.5 V", ref: dc}
+
+block_diagram:
+  ref: blocks
+  blocks:
+    - {id: status, label: Status register, detail: "RDY, WEN, BP1, BP0", at: [0, 0], tone: amber, ref: status}
+    - {id: array, label: Memory array, detail: "128, 256 or 512 x 8 bits", at: [0, 1], tone: teal,
+       pins: [VCC, GND]}
+    - {id: addr, label: Address decoder, detail: "address byte, A8 in the opcode", at: [1, 1]}
+    - {id: data, label: Data register, detail: "shifts SI in, MSB first", at: [0, 2], pins: [SI]}
+    - {id: out, label: Output buffer, detail: "drives SO, high impedance when idle", at: [1, 2], pins: [SO]}
+    - {id: mode, label: Mode decode logic, detail: "opcode, CS and WP", at: [0, 3], tone: blue, pins: [CS, WP]}
+    - {id: clock, label: Clock generator, detail: "SCK, paused by HOLD", at: [0, 4], tone: slate,
+       pins: [SCK, HOLD]}
+  links:
+    - {from: status, to: array}
+    - {from: addr, to: array}
+    - {from: array, to: data, label: bytes, both: true}
+    - {from: mode, to: data}
+    - {from: mode, to: addr, label: address}
+    - {from: data, to: out}
+    - {from: mode, to: out}
+    - {from: clock, to: mode, label: clock}
+
+circuits:
+  - id: typical
+    title: Typical wiring
+    description: >-
+      The EEPROM on an MCU's SPI bus as Figure 5-1 draws it (MOSI to SI, MISO from SO, SCK, a select line to CS),
+      with WP on a GPIO the driver drives through GpioSet() and HOLD tied to VCC.
+    ref: spi
+    parts:
+      - {id: U1, kind: chip}
+      - id: U2
+        kind: mcu
+        label: MCU
+        pins:
+          - {name: SCK, label: SPI SCK}
+          - {name: MOSI, label: SPI MOSI}
+          - {name: MISO, label: SPI MISO}
+          - {name: CS, label: GPIO / CS}
+          - {name: WP, label: GPIO}
+          - VDD
+          - GND
+      - {id: C1, kind: capacitor, value: 100 nF,
+         unverified: "decoupling value: the datasheet gives no VCC decoupling"}
+      - {id: R1, kind: resistor, value: 10 kΩ,
+         unverified: "board choice that keeps WP low (writes blocked) until the MCU drives it; the datasheet shows no WP circuit"}
+    nets:
+      - {name: "+3V3", kind: supply, nodes: [U1.VCC, U1.HOLD, C1.1, U2.VDD]}
+      - {name: GND, kind: ground, nodes: [U1.GND, C1.2, R1.2, U2.GND]}
+      - {name: SCK, nodes: [U1.SCK, U2.SCK]}
+      - {name: SI, nodes: [U1.SI, U2.MOSI]}
+      - {name: SO, nodes: [U1.SO, U2.MISO]}
+      - {name: CS, nodes: [U1.CS, U2.CS]}
+      - {name: WP, nodes: [U1.WP, U2.WP, R1.1]}

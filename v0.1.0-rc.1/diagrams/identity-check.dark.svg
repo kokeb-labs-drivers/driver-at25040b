@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="812" viewBox="0 0 1200 812" role="img" aria-labelledby="identity-check-title identity-check-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="identity-check-title">The identity check, and what a broken bus looks like</title>
+<desc id="identity-check-desc">Left: the steps of EnsureInitialized, the status read until idle and confirmed, the write enable toggle or the double read of the first bytes, each with its errors. Right: each bus fault from the tests with the status byte it shows and the error it returns.</desc>
+<defs><marker id="fk-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6C7889"/></marker></defs>
+<rect x="0.5" y="0.5" width="1199" height="811" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="44" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#F8D27A">CONTRACT</text>
+<text x="32" y="77.3" font-size="26" font-weight="700" fill="#E8EDF3">The identity check, and what a broken bus looks like</text>
+<text x="32" y="103.8" font-size="15" fill="#9AA6B5">Left: what EnsureInitialized() does. Right: the faults the tests inject, and what the driver says.</text>
+<rect x="32" y="119.8" width="1136" height="1" fill="#252F3C"/>
+<path d="M455.2 210.8 L455.2 266.3" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M455.2 343.3 L455.2 398.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M496 304.8 L584 304.8 Q592 304.8 592 312.8 L592 561.8 Q592 569.8 584 569.8 L496 569.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#fk-arrow-rail)"/>
+<rect x="32" y="137.8" width="460" height="69" rx="10" fill="#2A2113" stroke="#F4B942" stroke-width="1.4"/>
+<rect x="32" y="145.8" width="4" height="53" rx="2" fill="#F4B942"/>
+<rect x="32" y="270.3" width="460" height="69" rx="10" fill="#2A2113" stroke="#F4B942" stroke-width="1.4"/>
+<rect x="32" y="278.3" width="4" height="53" rx="2" fill="#F4B942"/>
+<rect x="32" y="402.8" width="460" height="69" rx="10" fill="#2A2113" stroke="#F4B942" stroke-width="1.4"/>
+<rect x="32" y="410.8" width="4" height="53" rx="2" fill="#F4B942"/>
+<rect x="32" y="535.3" width="460" height="69" rx="10" fill="#2A2113" stroke="#F4B942" stroke-width="1.4"/>
+<rect x="32" y="543.3" width="4" height="53" rx="2" fill="#F4B942"/>
+<rect x="702" y="137.8" width="466" height="69" rx="10" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<rect x="702" y="145.8" width="4" height="53" rx="2" fill="#FBBF24"/>
+<rect x="702" y="222.8" width="466" height="69" rx="10" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<rect x="702" y="230.8" width="4" height="53" rx="2" fill="#FBBF24"/>
+<rect x="702" y="307.8" width="466" height="69" rx="10" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<rect x="702" y="315.8" width="4" height="53" rx="2" fill="#FBBF24"/>
+<rect x="702" y="392.8" width="466" height="69" rx="10" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<rect x="702" y="400.8" width="4" height="53" rx="2" fill="#FBBF24"/>
+<rect x="702" y="477.8" width="466" height="69" rx="10" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<rect x="702" y="485.8" width="4" height="53" rx="2" fill="#FBBF24"/>
+<rect x="32" y="671.8" width="1136" height="79.3" rx="10" fill="#2C2310" stroke="#6A5220" stroke-width="1"/>
+<text x="52" y="164.6" font-size="15" font-weight="700" fill="#F8D27A">Check the Config, bring the bus up, park WP</text>
+<text x="52" y="189.4" font-size="13" fill="#D2DAE4">No transfer before Validate() passes</text>
+<rect x="32" y="214.8" width="115.5" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="40" y="229.2" font-size="11.5" font-weight="700" fill="#FECDD3">InvalidArgument</text>
+<text x="52" y="297.1" font-size="15" font-weight="700" fill="#F8D27A">(a) Status until idle, confirmed</text>
+<text x="52" y="321.9" font-size="13" fill="#D2DAE4">0xFF waits; bits 7 to 4 or RDY set: not a status</text>
+<rect x="32" y="347.3" width="72.6" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="40" y="361.7" font-size="11.5" font-weight="700" fill="#FECDD3">BusNoise</text>
+<rect x="112.6" y="347.3" width="127.1" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="120.6" y="361.7" font-size="11.5" font-weight="700" fill="#FECDD3">DeviceIdMismatch</text>
+<rect x="247.8" y="347.3" width="73.9" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="255.8" y="361.7" font-size="11.5" font-weight="700" fill="#FECDD3">NoDevice</text>
+<text x="52" y="429.6" font-size="15" font-weight="700" fill="#F8D27A">(b) WEN must follow WREN and WRDI</text>
+<text x="52" y="454.4" font-size="13" fill="#D2DAE4">WP released for it, parked after; nothing written</text>
+<rect x="32" y="479.8" width="127.1" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="40" y="494.2" font-size="11.5" font-weight="700" fill="#FECDD3">DeviceIdMismatch</text>
+<rect x="167.1" y="479.8" width="72.6" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="175.1" y="494.2" font-size="11.5" font-weight="700" fill="#FECDD3">BusNoise</text>
+<text x="52" y="562" font-size="15" font-weight="700" fill="#F8D27A">or: the first 8 bytes, twice</text>
+<text x="52" y="586.9" font-size="13" fill="#D2DAE4">Only with check_write_enable = false (WP tied low)</text>
+<rect x="32" y="612.3" width="72.6" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="40" y="626.7" font-size="11.5" font-weight="700" fill="#FECDD3">BusNoise</text>
+<rect x="515.6" y="427.3" width="152.8" height="20" rx="10" fill="#0E131A"/>
+<text x="592" y="441.6" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">check_write_enable off</text>
+<text x="722" y="164.6" font-size="15" font-weight="700" fill="#FDE68A">MISO floating high: module unplugged</text>
+<text x="722" y="189.4" font-size="13" fill="#D2DAE4">Status 0xFF for the whole timeout</text>
+<rect x="1082.1" y="177.3" width="73.9" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="1090.1" y="191.7" font-size="11.5" font-weight="700" fill="#FECDD3">NoDevice</text>
+<text x="722" y="249.6" font-size="15" font-weight="700" fill="#FDE68A">MISO stuck low or pulled low</text>
+<text x="722" y="274.4" font-size="13" fill="#D2DAE4">Status 0x00, but WEN never reads 1</text>
+<rect x="1028.9" y="262.3" width="127.1" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="1036.9" y="276.7" font-size="11.5" font-weight="700" fill="#FECDD3">DeviceIdMismatch</text>
+<text x="722" y="334.6" font-size="15" font-weight="700" fill="#FDE68A">MOSI echoed on MISO</text>
+<text x="722" y="359.4" font-size="13" fill="#D2DAE4">Status 0x05, the RDSR opcode: RDY set</text>
+<rect x="1028.9" y="347.3" width="127.1" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="1036.9" y="361.7" font-size="11.5" font-weight="700" fill="#FECDD3">DeviceIdMismatch</text>
+<text x="722" y="419.6" font-size="15" font-weight="700" fill="#FDE68A">HOLD strapped to CS</text>
+<text x="722" y="444.4" font-size="13" fill="#D2DAE4">SO stays high impedance: status 0xFF</text>
+<rect x="1082.1" y="432.3" width="73.9" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="1090.1" y="446.7" font-size="11.5" font-weight="700" fill="#FECDD3">NoDevice</text>
+<text x="722" y="504.6" font-size="15" font-weight="700" fill="#FDE68A">WP held low on the board</text>
+<text x="722" y="529.4" font-size="13" fill="#D2DAE4">Status 0x00, WREN ignored: WEN stays 0</text>
+<rect x="1028.9" y="517.3" width="127.1" height="21.5" rx="10.8" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<text x="1036.9" y="531.7" font-size="11.5" font-weight="700" fill="#FECDD3">DeviceIdMismatch</text>
+<text x="46" y="698.5" font-size="15" font-weight="700" fill="#FDE68A">Why the toggle</text>
+<text x="46" y="716.3" font-size="13" fill="#FDE68A">A floating-low MISO reads status 0x00, which an idle chip also returns: only the write enable toggle tells them apart, which is why it is the default. With</text>
+<text x="46" y="735.2" font-size="13" fill="#FDE68A">check_write_enable off, a dead bus passes.</text>
+<rect x="32" y="766.5" width="14" height="14" rx="4" fill="#2A2113" stroke="#F4B942" stroke-width="1.4"/>
+<text x="54" y="778.2" font-size="12.5" fill="#9AA6B5">start-up step</text>
+<rect x="159" y="766.5" width="14" height="14" rx="4" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<text x="181" y="778.2" font-size="12.5" fill="#9AA6B5">fault on the bus or board</text>
+<rect x="359.5" y="766.5" width="14" height="14" rx="4" fill="#321820" stroke="#FB7185" stroke-width="1.4"/>
+<text x="381.5" y="778.2" font-size="12.5" fill="#9AA6B5">error returned</text>
+<path d="M493.4 772.8L523.4 772.8" fill="none" stroke="#6C7889" stroke-width="1.6" marker-end="url(#fk-arrow-rail)"/>
+<text x="537.4" y="778.2" font-size="12.5" fill="#9AA6B5">next step</text>
+</svg>

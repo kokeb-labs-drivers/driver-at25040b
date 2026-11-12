@@ -1278,7 +1278,7 @@ drawn from <a href="../hardware.yml"><code>docs/hardware.yml</code></a>.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The AT25040B seen from the top, in its SOIC-8 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/5c84878f194ba2dfdb20efdab59077bdea2bfe3e/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/54da26042bbfedd8461a32b9934450930e495d47/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-pins -->
 <p>SOIC-8, 8 pins (1 Pin Configurations, Table 1-1, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=2">p. 2</a>).</p>
@@ -1388,7 +1388,7 @@ after, whatever happened.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The AT25040B's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/5c84878f194ba2dfdb20efdab59077bdea2bfe3e/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/54da26042bbfedd8461a32b9934450930e495d47/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
 </details>
 <h2 id="connecting-it">Connecting it<a class="headerlink" href="#connecting-it" title="Permanent link">&para;</a></h2>
 <p>Figure 5-1 draws only the four SPI lines. The circuit adds what the driver and the chip need around them: WP on a
@@ -1402,7 +1402,7 @@ capacitor. The datasheet gives neither value; both are marked <code>*</code>.</p
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/5c84878f194ba2dfdb20efdab59077bdea2bfe3e/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/54da26042bbfedd8461a32b9934450930e495d47/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-parts -->
 <table>
@@ -1478,7 +1478,7 @@ capacitor. The datasheet gives neither value; both are marked <code>*</code>.</p
 </tbody>
 </table>
 <p>The driver states these as <code>constexpr</code> values in
-<a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/5c84878f194ba2dfdb20efdab59077bdea2bfe3e/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> (<code>kSpiMode</code>, <code>kMaxClockHz</code>, <code>BusTimingAt()</code>, ...);
+<a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/54da26042bbfedd8461a32b9934450930e495d47/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> (<code>kSpiMode</code>, <code>kMaxClockHz</code>, <code>BusTimingAt()</code>, ...);
 the <a href="../porting/#bus-requirements">Porting</a> page lists them.</p>
 <p>t<sub>CSS</sub> is CS setup before the first clock, t<sub>CSH</sub> CS hold after the last, and t<sub>CS</sub> the
 time CS stays high between instructions (Table 4-3). The datasheet gives no power-up time.</p>
@@ -1491,7 +1491,7 @@ time CS stays high between instructions (Table 4-3). The datasheet gives no powe
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Each row is one transfer, CS low from the first byte to the last, drawn left to right in the order the bytes are clocked; the top line of a byte is what the driver sends on MOSI, the bottom line what it keeps from MISO. Every opcode is 0000 followed by four bits, written out in binary. For READ and WRITE, bit 3 of the opcode carries address bit A8 on the AT25040B and the next byte holds A7 to A0; the driver sets A8 for addresses 0x100 to 0x1FF and never on the smaller parts. RDSR returns the status in its second byte; READ returns data from the third byte on, up to kReadChunkBytes per transfer; WRITE carries 1 to kPageSizeBytes data bytes inside one page. WREN, WRDI, WRSR and WRITE need no reply, and the driver passes no receive buffer for them. The opcodes come from inc/at25040b_registers.hpp and the byte layouts from detail::EepromBus in inc/at25040b_spi_interface.hpp.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/5c84878f194ba2dfdb20efdab59077bdea2bfe3e/inc/at25040b_registers.hpp"><code>inc/at25040b_registers.hpp</code></a> <code>opcodes</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/5c84878f194ba2dfdb20efdab59077bdea2bfe3e/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> <code>detail::EepromBus</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/5c84878f194ba2dfdb20efdab59077bdea2bfe3e/inc/at25040b_types.hpp"><code>inc/at25040b_types.hpp</code></a> <code>kReadChunkBytes</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/5c84878f194ba2dfdb20efdab59077bdea2bfe3e/docs/diagrams/figures/instruction-frames.py"><code>docs/diagrams/figures/instruction-frames.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/54da26042bbfedd8461a32b9934450930e495d47/inc/at25040b_registers.hpp"><code>inc/at25040b_registers.hpp</code></a> <code>opcodes</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/54da26042bbfedd8461a32b9934450930e495d47/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> <code>detail::EepromBus</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/54da26042bbfedd8461a32b9934450930e495d47/inc/at25040b_types.hpp"><code>inc/at25040b_types.hpp</code></a> <code>kReadChunkBytes</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/54da26042bbfedd8461a32b9934450930e495d47/docs/diagrams/figures/instruction-frames.py"><code>docs/diagrams/figures/instruction-frames.py</code></a>.</p>
 </details>
 <table>
 <thead>

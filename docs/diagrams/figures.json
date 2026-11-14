@@ -11,6 +11,18 @@
       "inc/at25040b_spi_interface.hpp"
     ]
   },
+  "chip-capabilities": {
+    "title": "What the AT25040B does",
+    "alt": "Capability map of the AT25040B: Sequential read (supported): Reads one byte or the whole array in one transfer; the address counter rolls over at the top; Page write (supported): Writes up to an 8-byte page in one self-timed cycle, split at page boundaries, no erase first; Status register (supported): Reads ready/busy, the write enable latch and the block protection bits; Block write protection (supported): Makes the top quarter, the top half or all of the array read-only, kept without power; Write protect and latch (supported): Blocks writes with the WP pin and the write enable latch; the driver releases WP only while it writes; Three densities (supported): One driver for the 128, 256 and 512 byte parts; the AT25040B carries address bit A8 in the opcode; SPI modes 0 and 3 (supported): Publishes the mode, bit order and clock and select timing for each supply voltage; HOLD pin (not covered): Pauses a transfer while SCK is low; the driver never uses it, tie the pin to VCC.",
+    "description": "Each card is one function of the AT25040B: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/at25040b_spi_interface.hpp"
+    ]
+  },
   "chip-circuit-typical": {
     "title": "AT25040B: Typical wiring",
     "alt": "Schematic of the AT25040B typical wiring: the chip with U2 MCU, C1 capacitor 100 nF, R1 resistor 10 kΩ; the MCU wires carry the port hooks GpioSet(CtrlPin::WriteProtect), Transfer().",
@@ -23,12 +35,60 @@
       "inc/at25040b_spi_interface.hpp"
     ]
   },
+  "chip-frame-memory": {
+    "title": "AT25040B: READ and WRITE instruction",
+    "alt": "READ and WRITE instruction of the AT25040B, 24 bits, most significant bit first. READ: 0000 (bits 23 to 20), A8 (bit 19), 011 (bits 18 to 16), address A7 to A0 (bits 15 to 8), any value (ignored) (bits 7 to 0); Data out: high impedance (bits 23 to 8), data D7 to D0 (bits 7 to 0); WRITE: 0000 (bits 23 to 20), A8 (bit 19), 010 (bits 18 to 16), address A7 to A0 (bits 15 to 8), data D7 to D0 (bits 7 to 0). Below, the SPI mode 0 waveform of one transfer in the same bit grid.",
+    "description": "One READ and WRITE instruction of the AT25040B, 24 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/at25040b_spi_interface.hpp"
+    ]
+  },
+  "chip-frame-status": {
+    "title": "AT25040B: RDSR and WRSR instruction",
+    "alt": "RDSR and WRSR instruction of the AT25040B, 16 bits, most significant bit first. RDSR: 0000 X101 (bits 15 to 8), any value (ignored) (bits 7 to 0); Status: high impedance (bits 15 to 8), status register (bits 7 to 0); WRSR: 0000 X001 (bits 15 to 8), status register (BP1 and BP0 in bits 3 and 2) (bits 7 to 0). The status register field of the Status row: bit 7 X7, bit 6 X6, bit 5 X5, bit 4 X4, bit 3 BP1, bit 2 BP0, bit 1 WEN, bit 0 RDY. Below, the SPI mode 0 waveform of one transfer in the same bit grid.",
+    "description": "One RDSR and WRSR instruction of the AT25040B, 16 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits. The table at the bottom names each bit of the status register field.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/at25040b_spi_interface.hpp"
+    ]
+  },
+  "chip-hero": {
+    "title": "AT25040B",
+    "alt": "Overview of the AT25040B, a 1 Kbit, 2 Kbit or 4 Kbit serial EEPROM (128, 256 or 512 bytes) on an SPI bus: it keeps data with the power off, writes a page in one self-timed cycle and protects a quarter, a half or all of the array. A MCU talks to it over SPI mode 0 or 3. Headline figures: 1.8 to 5.5 V supply voltage; 512 x 8 array of the AT25040B (128 or 256 bytes on the smaller parts); 20 MHz SCK at 4.5 V and above (10 MHz from 2.5 V, 5 MHz from 1.8 V); 5 ms self-timed write cycle, at most; 1 million write cycles.",
+    "description": "The AT25040B in the middle, drawn as its SOIC-8 package. On the left the MCU that runs the driver, joined to it by SPI mode 0 or 3. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/at25040b_spi_interface.hpp"
+    ]
+  },
   "chip-pinout": {
     "title": "AT25040B pinout, SOIC-8",
     "alt": "Pinout of the AT25040B in SOIC-8, top view: 8 pins, each with its name, its electrical type as a colour and the driver hook that uses it.",
     "description": "The AT25040B seen from the top, in its SOIC-8 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.",
     "profile": "detail",
     "width": 1046,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/at25040b_spi_interface.hpp"
+    ]
+  },
+  "chip-wiring-typical": {
+    "title": "Wiring: Typical wiring",
+    "alt": "Wiring of the AT25040B for the Typical wiring: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SI (Transfer()); MCU SPI MISO to SO (Transfer()); MCU GPIO / CS to CS (Transfer()); MCU GPIO to WP (GpioSet(CtrlPin::WriteProtect)). Supplies, grounds and the support parts are listed under the drawing.",
+    "description": "The MCU on the left, the AT25040B in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "profile": "overview",
+    "width": 1200,
     "source": "docs/hardware.yml",
     "sources": [
       "docs/hardware.yml",

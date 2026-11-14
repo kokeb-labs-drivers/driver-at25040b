@@ -9,12 +9,6 @@ hide:
 
 # AT25040B Driver
 
-<!-- generated: chip-summary -->
-The **AT25040B** is a 1 Kbit, 2 Kbit or 4 Kbit serial EEPROM (128, 256 or 512 bytes) on an SPI bus: it keeps data with
-the power off, writes a page in one self-timed cycle and protects a quarter, a half or all of the array (Features, [p.
-1](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1)).
-<!-- /generated -->
-
 <p>A C++20 driver for the Microchip (formerly Atmel) AT25010B, AT25020B and AT25040B SPI serial EEPROMs. It checks
 that a chip really answers before trusting it, reads any range, writes page by page with the write enable latch,
 the write cycle and a read-back checked at every step, drives the WP pin and sets the block protection, on any
@@ -24,6 +18,12 @@ MCU.</p>
 [API guide](api-guide.md){ .md-button }
 [Source on GitHub](https://github.com/kokeb-labs-drivers/driver-at25040b){ .md-button }
 </div>
+
+<!-- generated: chip-summary -->
+The **AT25040B** is a 1 Kbit, 2 Kbit or 4 Kbit serial EEPROM (128, 256 or 512 bytes) on an SPI bus: it keeps data with
+the power off, writes a page in one self-timed cycle and protects a quarter, a half or all of the array (Features, [p.
+1](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1)).
+<!-- /generated -->
 
 <!-- figure: chip-hero -->
 <picture>
@@ -63,7 +63,8 @@ MCU.</p>
 <!-- generated: chip-uses -->
 - Industrial and commercial equipment: where low power and low-voltage operation are essential
 
-Uses named by the datasheet (Features, [p. 1](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1)).
+Uses named by the datasheet (Features, [p.
+1](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1)).
 <!-- /generated -->
 
 ## Inside the chip
@@ -125,6 +126,33 @@ Uses named by the datasheet (Features, [p. 1](https://ww1.microchip.com/download
 <!-- /figure -->
 
 The pin tables, the full schematic and the timing are on [Hardware](hardware.md).
+
+## Quick start
+
+Wire the chip as above, write the port for your MCU ([Porting](porting.md)), then:
+
+<!-- generated: quickstart-code -->
+```cpp
+#include <array>
+#include <cstdint>
+
+#include "at25040b.hpp"
+
+int read_board_id(MyPort& port, std::array<uint8_t, 8>& id) {
+  at25040b::AT25040B<MyPort> eeprom(port); // AT25040B, identity check on; no I/O yet
+
+  if (auto r = eeprom.EnsureInitialized(); !r) { // 1. bus up, identity check
+    return static_cast<int>(r.error); //    NoDevice: nothing on MISO. DeviceIdMismatch: wiring, WP
+  }
+  if (auto r = eeprom.Read(0, id); !r) { // 2. eight bytes from address 0
+    return static_cast<int>(r.error);    //    Timeout: a write cycle that never ends
+  }
+  return 0; // 3. id holds what the chip sent: one READ, so check its CRC
+}
+```
+<!-- /generated -->
+
+Every step, with the port and what to check when it does not work: [Quickstart](quickstart.md).
 
 ## Driver coverage
 

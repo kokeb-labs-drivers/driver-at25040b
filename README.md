@@ -53,7 +53,8 @@ The site at <https://kokeb-labs-drivers.github.io/driver-at25040b/> opens when t
 <!-- generated: chip-uses -->
 - Industrial and commercial equipment: where low power and low-voltage operation are essential
 
-Uses named by the datasheet (Features, [p. 1](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1)).
+Uses named by the datasheet (Features, [p.
+1](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1)).
 <!-- /generated -->
 
 ## Inside the chip

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="519" viewBox="0 0 660 519" role="img" aria-labelledby="one-read-through-the-layers-title one-read-through-the-layers-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="one-read-through-the-layers-title">One read through the layers</title>
+<desc id="one-read-through-the-layers-desc">One call through the layers: your code calls Read(0x1F0, buf) (16 bytes), the core exchanges frames with the chip through your port and returns the result to your code.</desc>
+<defs><marker id="one-read-through-the-layers-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7C8798"/></marker></defs>
+<rect x="0.5" y="0.5" width="659" height="518" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="54.8" font-size="26" font-weight="700" fill="#0E1726">One read through the layers</text>
+<rect x="32" y="70.8" width="596" height="1" fill="#E2E7EE"/>
+<path d="M104.9 144.8 L104.9 522.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M300.2 144.8 L300.2 522.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M555.1 144.8 L555.1 522.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M108.9 180.8 L296.2 180.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M304.2 224.8 L551.1 224.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M551.1 268.8 L304.2 268.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M304.2 312.8 L551.1 312.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M551.1 356.8 L304.2 356.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M304.2 400.8 L551.1 400.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M551.1 444.8 L304.2 444.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M296.2 488.8 L108.9 488.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<rect x="39.9" y="88.8" width="130" height="52" rx="10" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="39.9" y="96.8" width="4" height="36" rx="2" fill="#A21CAF"/>
+<rect x="209.7" y="88.8" width="181" height="52" rx="10" fill="#EAF7EF" stroke="#15803D" stroke-width="1.4"/>
+<rect x="209.7" y="96.8" width="4" height="36" rx="2" fill="#15803D"/>
+<rect x="490.1" y="88.8" width="130" height="52" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="490.1" y="96.8" width="4" height="36" rx="2" fill="#0B7A72"/>
+<text x="107.9" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#86198F">Your code</text>
+<text x="303.2" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#14532D">AT25040B&lt;Port&gt;</text>
+<text x="558.1" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#0B5F59">Your port</text>
+<rect x="112.9" y="156.8" width="179.3" height="20" rx="10" fill="#FFFFFF"/>
+<text x="202.5" y="171.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Read(0x1F0, buf) (16 bytes)</text>
+<rect x="374" y="200.8" width="107.4" height="20" rx="10" fill="#FFFFFF"/>
+<text x="427.7" y="215.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(RDSR)</text>
+<rect x="369.7" y="244.8" width="116" height="20" rx="10" fill="#FFFFFF"/>
+<text x="427.7" y="259.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true, status 0x00</text>
+<rect x="374" y="288.8" width="107.4" height="20" rx="10" fill="#FFFFFF"/>
+<text x="427.7" y="303.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(RDSR)</text>
+<rect x="319.6" y="332.8" width="216.1" height="20" rx="10" fill="#FFFFFF"/>
+<text x="427.7" y="347.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true, status 0x00 (confirmed idle)</text>
+<rect x="308.2" y="376.8" width="238.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="427.7" y="391.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(READ 0x0B, 0xF0, 16 bytes)</text>
+<rect x="380.6" y="420.8" width="94.1" height="20" rx="10" fill="#FFFFFF"/>
+<text x="427.7" y="435.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true, 16 bytes</text>
+<rect x="142.1" y="464.8" width="120.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="202.5" y="479.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Result&lt;void&gt;{Ok}</text>
+</svg>

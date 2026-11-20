@@ -1083,7 +1083,7 @@
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b.hpp"><code>inc/at25040b.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b.hpp"><code>inc/at25040b.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
 <h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
 <table>
@@ -1097,22 +1097,22 @@
 <tbody>
 <tr>
 <td>Core</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b.hpp"><code>inc/at25040b.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/src/at25040b.ipp"><code>src/at25040b.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b.hpp"><code>inc/at25040b.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a></td>
 <td>Lifecycle, identity check, range checks, page split, write cycle waits, WP handling, verification, errors</td>
 </tr>
 <tr>
 <td>Types and registers</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b_types.hpp"><code>inc/at25040b_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b_registers.hpp"><code>inc/at25040b_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_types.hpp"><code>inc/at25040b_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_registers.hpp"><code>inc/at25040b_registers.hpp</code></a></td>
 <td><code>Error</code>, <code>Result&lt;T&gt;</code>, <code>Variant</code>, <code>BlockProtect</code>, <code>Status</code>, <code>Config</code>; the opcodes and status bits</td>
 </tr>
 <tr>
 <td>Port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a></td>
 <td>The bus requirements, the CRTP base, <code>CtrlPin</code> and <code>GpioSignal</code>, the <code>SpiPort</code> concept, <code>detail::EepromBus</code> (one transfer per instruction, A8 in the opcode, the transfer buffers)</td>
 </tr>
 <tr>
 <td>Compile-time helpers</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b_detail.hpp"><code>inc/at25040b_detail.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_detail.hpp"><code>inc/at25040b_detail.hpp</code></a></td>
 <td>Exact hook probes, <code>Field&lt;&gt;</code> for BP1:BP0, enumerator checks; no run-time code</td>
 </tr>
 <tr>
@@ -1122,24 +1122,22 @@
 </tr>
 <tr>
 <td>Kconfig layer</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b_kconfig.hpp"><code>inc/at25040b_kconfig.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_kconfig.hpp"><code>inc/at25040b_kconfig.hpp</code></a></td>
 <td>Optional: a <code>Config</code> from ESP-IDF menuconfig</td>
 </tr>
 </tbody>
 </table>
 <h2 id="one-read-through-the-layers">One read through the layers<a class="headerlink" href="#one-read-through-the-layers" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>sequenceDiagram
-    participant App as Your code
-    participant Core as AT25040B&lt;Port&gt;
-    participant Port as Your port
-    App-&gt;&gt;Core: Read(0x1F0, buf) (16 bytes)
-    Core-&gt;&gt;Port: Transfer(RDSR)
-    Port--&gt;&gt;Core: true, status 0x00
-    Core-&gt;&gt;Port: Transfer(RDSR)
-    Port--&gt;&gt;Core: true, status 0x00 (confirmed idle)
-    Core-&gt;&gt;Port: Transfer(READ 0x0B, 0xF0, 16 bytes)
-    Port--&gt;&gt;Core: true, 16 bytes
-    Core--&gt;&gt;App: Result&lt;void&gt;{Ok}</code></pre>
+<figure class="kb-figure">
+<img src="../diagrams/one-read-through-the-layers.svg#only-light" alt="One call through the layers: your code calls Read(0x1F0, buf) (16 bytes), the core exchanges frames with the chip through your port and returns the result to your code." width="660" height="519" loading="lazy"><img src="../diagrams/one-read-through-the-layers.dark.svg#only-dark" alt="One call through the layers: your code calls Read(0x1F0, buf) (16 bytes), the core exchanges frames with the chip through your port and returns the result to your code." width="660" height="519" loading="lazy">
+<figcaption>One read through the layers</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Participants, left to right: Your code, AT25040B<Port> and Your port. The steps run from top to bottom. Your code sends Read(0x1F0, buf) (16 bytes) to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true, status 0x00 to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true, status 0x00 (confirmed idle) to AT25040B<Port>. AT25040B<Port> sends Transfer(READ 0x0B, 0xF0, 16 bytes) to Your port. Your port returns true, 16 bytes to AT25040B<Port>. AT25040B<Port> returns Result<void>{Ok} to Your code.</p>
+<p>Drawn from: <a href="../model/one-read-through-the-layers.seq.yml"><code>docs/model/one-read-through-the-layers.seq.yml</code></a>.</p>
+</details>
 <p>A longer read sends one READ every 16 bytes, recomputing A8 for each; <code>Read(..., Verify::ReadBack)</code> sends each READ
 twice and compares. A write is drawn on the
 <a href="../api-guide/#write">API guide</a>.</p>
@@ -1218,19 +1216,19 @@ value of it changes what the chip does.</p>
 <tbody>
 <tr>
 <td>The public API</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b.hpp"><code>inc/at25040b.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b.hpp"><code>inc/at25040b.hpp</code></a></td>
 </tr>
 <tr>
 <td>How a call is implemented</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/src/at25040b.ipp"><code>src/at25040b.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a></td>
 </tr>
 <tr>
 <td>Opcodes and status bits</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b_registers.hpp"><code>inc/at25040b_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_registers.hpp"><code>inc/at25040b_registers.hpp</code></a></td>
 </tr>
 <tr>
 <td>The port contract and the instruction framing</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507da0d56bb7c4d92cfb678ab5a52e5ffb4a2512/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a></td>
 </tr>
 </tbody>
 </table>

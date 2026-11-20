@@ -75,6 +75,23 @@
       "inc/at25040b_types.hpp:kReadChunkBytes"
     ]
   },
+  "one-read-through-the-layers": {
+    "title": "One read through the layers",
+    "alt": "One call through the layers: your code calls Read(0x1F0, buf) (16 bytes), the core exchanges frames with the chip through your port and returns the result to your code.",
+    "description": "Participants, left to right: Your code, AT25040B<Port> and Your port. The steps run from top to bottom. Your code sends Read(0x1F0, buf) (16 bytes) to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true, status 0x00 to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true, status 0x00 (confirmed idle) to AT25040B<Port>. AT25040B<Port> sends Transfer(READ 0x0B, 0xF0, 16 bytes) to Your port. Your port returns true, 16 bytes to AT25040B<Port>. AT25040B<Port> returns Result<void>{Ok} to Your code.",
+    "profile": "detail",
+    "width": 660,
+    "source": "docs/model/one-read-through-the-layers.seq.yml",
+    "sources": [
+      "docs/model/one-read-through-the-layers.seq.yml"
+    ],
+    "kind": "seq",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
+  },
   "write-path": {
     "title": "Write(), step by step",
     "alt": "Flowchart of Write: check the range, read the status until idle, refuse a block-protected range, release WP, then per 8-byte page WREN and a WEN check, WRITE, the write cycle wait, a WEN check and a read-back; WP is parked at the end, and each step names the error it can return.",

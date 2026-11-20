@@ -37,20 +37,14 @@ How the driver is built: three layers, one of them yours, and what happens in ea
 
 ## One read through the layers
 
-```mermaid
-sequenceDiagram
-    participant App as Your code
-    participant Core as AT25040B<Port>
-    participant Port as Your port
-    App->>Core: Read(0x1F0, buf) (16 bytes)
-    Core->>Port: Transfer(RDSR)
-    Port-->>Core: true, status 0x00
-    Core->>Port: Transfer(RDSR)
-    Port-->>Core: true, status 0x00 (confirmed idle)
-    Core->>Port: Transfer(READ 0x0B, 0xF0, 16 bytes)
-    Port-->>Core: true, 16 bytes
-    Core-->>App: Result<void>{Ok}
-```
+<!-- figure: one-read-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/one-read-through-the-layers.dark.svg">
+  <img src="diagrams/one-read-through-the-layers.svg"
+    alt="One call through the layers: your code calls Read(0x1F0, buf) (16 bytes), the core exchanges frames
+    with the chip through your port and returns the result to your code.">
+</picture>
+<!-- /figure -->
 
 A longer read sends one READ every 16 bytes, recomputing A8 for each; `Read(..., Verify::ReadBack)` sends each READ
 twice and compares. A write is drawn on the

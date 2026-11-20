@@ -121,6 +121,23 @@ Drawn from:
 - `detail::EepromBus` in [`inc/at25040b_spi_interface.hpp`](../../inc/at25040b_spi_interface.hpp)
 - `kReadChunkBytes` in [`inc/at25040b_types.hpp`](../../inc/at25040b_types.hpp)
 
+## One read through the layers
+
+<!-- figure: one-read-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="one-read-through-the-layers.dark.svg">
+  <img src="one-read-through-the-layers.svg"
+    alt="One call through the layers: your code calls Read(0x1F0, buf) (16 bytes), the core exchanges frames
+    with the chip through your port and returns the result to your code.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/one-read-through-the-layers.seq.yml`](../model/one-read-through-the-layers.seq.yml)
+
+Drawn from:
+
+- [`docs/model/one-read-through-the-layers.seq.yml`](../model/one-read-through-the-layers.seq.yml)
+
 ## Write(), step by step
 
 <!-- figure: write-path -->

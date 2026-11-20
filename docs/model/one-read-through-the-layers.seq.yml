@@ -1,0 +1,26 @@
+---
+# Model of the figure 'one-read-through-the-layers'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+kind: seq
+id: one-read-through-the-layers
+title: "One read through the layers"
+alt: >-
+  One call through the layers: your code calls Read(0x1F0, buf) (16 bytes), the core exchanges frames with the
+  chip through your port and returns the result to your code.
+reads: >-
+  Participants, left to right: Your code, AT25040B<Port> and Your port. The steps run from top to bottom. Your code sends Read(0x1F0, buf) (16 bytes) to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true, status 0x00 to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true, status 0x00 (confirmed idle) to AT25040B<Port>. AT25040B<Port> sends Transfer(READ 0x0B, 0xF0, 16 bytes) to Your port. Your port returns true, 16 bytes to AT25040B<Port>. AT25040B<Port> returns Result<void>{Ok} to Your code.
+print: landscape
+sources:
+  - docs/model/one-read-through-the-layers.seq.yml
+participants:
+  - {id: app, label: "Your code", tone: magenta}
+  - {id: core, label: "AT25040B<Port>", tone: green}
+  - {id: port, label: "Your port", tone: teal}
+steps:
+  - {from: app, to: core, label: "Read(0x1F0, buf) (16 bytes)"}
+  - {from: core, to: port, label: "Transfer(RDSR)"}
+  - {from: port, to: core, label: "true, status 0x00", return: true}
+  - {from: core, to: port, label: "Transfer(RDSR)"}
+  - {from: port, to: core, label: "true, status 0x00 (confirmed idle)", return: true}
+  - {from: core, to: port, label: "Transfer(READ 0x0B, 0xF0, 16 bytes)"}
+  - {from: port, to: core, label: "true, 16 bytes", return: true}
+  - {from: core, to: app, label: "Result<void>{Ok}", return: true}

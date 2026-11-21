@@ -7,7 +7,11 @@ alt: >-
   One call through the layers: your code calls Read(0x1F0, buf) (16 bytes), the core exchanges frames with the
   chip through your port and returns the result to your code.
 reads: >-
-  Participants, left to right: Your code, AT25040B<Port> and Your port. The steps run from top to bottom. Your code sends Read(0x1F0, buf) (16 bytes) to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true, status 0x00 to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true, status 0x00 (confirmed idle) to AT25040B<Port>. AT25040B<Port> sends Transfer(READ 0x0B, 0xF0, 16 bytes) to Your port. Your port returns true, 16 bytes to AT25040B<Port>. AT25040B<Port> returns Result<void>{Ok} to Your code.
+  Participants, left to right: Your code, AT25040B<Port> and Your port. The steps run from top to bottom. Your code
+  sends Read(0x1F0, buf) (16 bytes) to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port
+  returns true, status 0x00 to AT25040B<Port>. AT25040B<Port> sends Transfer(RDSR) to Your port. Your port returns true,
+  status 0x00 (confirmed idle) to AT25040B<Port>. AT25040B<Port> sends Transfer(READ 0x0B, 0xF0, 16 bytes) to Your port.
+  Your port returns true, 16 bytes to AT25040B<Port>. AT25040B<Port> returns Result<void>{Ok} to Your code.
 print: landscape
 sources:
   - docs/model/one-read-through-the-layers.seq.yml

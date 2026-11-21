@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="638" viewBox="0 0 1200 638" role="img" aria-labelledby="chip-hero-title chip-hero-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-hero-title">AT25040B</title>
+<desc id="chip-hero-desc">Overview of the AT25040B, a 1 Kbit, 2 Kbit or 4 Kbit serial EEPROM (128, 256 or 512 bytes) on an SPI bus: it keeps data with the power off, writes a page in one self-timed cycle and protects a quarter, a half or all of the array. A MCU talks to it over SPI mode 0 or 3. Headline figures: 1.8 to 5.5 V supply voltage; 512 x 8 array of the AT25040B (128 or 256 bytes on the smaller parts); 20 MHz SCK at 4.5 V and above (10 MHz from 2.5 V, 5 MHz from 1.8 V); 5 ms self-timed write cycle, at most; 1 million write cycles.</desc>
+<defs><marker id="fk-arrow-blue-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#60A5FA"/></marker></defs>
+<rect x="0.5" y="0.5" width="1199" height="637" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#F8D27A">SPI SERIAL EEPROM</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#E8EDF3">AT25040B</text>
+<text x="32" y="115.4" font-size="18" fill="#9AA6B5">What talks to it, what it drives and what it reads back, with its headline numbers. Datasheet: Features, p. 1.</text>
+<rect x="32" y="131.4" width="1136" height="1" fill="#252F3C"/>
+<path d="M246 262.4 L423 262.4" fill="none" stroke="#60A5FA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-blue-strong)" marker-start="url(#fk-arrow-blue-strong)"/>
+<rect x="427" y="195.1" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="427" y="237.6" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="427" y="280.1" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="427" y="322.6" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="669" y="195.1" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="669" y="237.6" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="669" y="280.1" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="669" y="322.6" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="439" y="157.4" width="230" height="210" rx="10" fill="#18202B" stroke="#D2DAE4" stroke-width="2.2"/>
+<circle cx="459" cy="177.4" r="6" fill="#D2DAE4"/>
+<rect x="32" y="205.4" width="210" height="114" rx="12" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="32" y="213.4" width="4" height="98" rx="2" fill="#60A5FA"/>
+<rect x="32" y="407.4" width="214.4" height="199.8" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="262.4" y="407.4" width="214.4" height="199.8" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="492.8" y="407.4" width="214.4" height="199.8" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="723.2" y="407.4" width="214.4" height="199.8" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="953.6" y="407.4" width="214.4" height="199.8" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<text x="554" y="256.4" font-size="30" font-weight="700" text-anchor="middle" fill="#E8EDF3">AT25040B</text>
+<text x="554" y="286.4" font-size="17" text-anchor="middle" fill="#9AA6B5">SOIC-8</text>
+<text x="554" y="310.4" font-size="16" text-anchor="middle" fill="#9AA6B5">8 pins</text>
+<text x="56" y="240.4" font-size="20" font-weight="700" fill="#BFDBFE">MCU</text>
+<text x="56" y="271" font-size="17" fill="#D2DAE4">your firmware and</text>
+<text x="56" y="295.7" font-size="17" fill="#D2DAE4">this driver</text>
+<rect x="264.2" y="250.4" width="140.7" height="24" rx="12" fill="#0E131A"/>
+<text x="334.5" y="268.2" font-size="16" font-weight="500" text-anchor="middle" fill="#9AA6B5">SPI mode 0 or 3</text>
+<text x="48" y="455.4" font-size="30" font-weight="700" fill="#E8EDF3">1.8 to 5.5 V</text>
+<text x="48" y="485" font-size="17" fill="#D2DAE4">supply voltage</text>
+<text x="48" y="589.2" font-size="16" fill="#9AA6B5">4.2, p. 4</text>
+<text x="278.4" y="455.4" font-size="30" font-weight="700" fill="#E8EDF3">512 x 8</text>
+<text x="278.4" y="485" font-size="17" fill="#D2DAE4">array of the</text>
+<text x="278.4" y="507.9" font-size="17" fill="#D2DAE4">AT25040B (128 or</text>
+<text x="278.4" y="530.9" font-size="17" fill="#D2DAE4">256 bytes on the</text>
+<text x="278.4" y="553.8" font-size="17" fill="#D2DAE4">smaller parts)</text>
+<text x="278.4" y="589.2" font-size="16" fill="#9AA6B5">Features, p. 1</text>
+<text x="508.8" y="455.4" font-size="30" font-weight="700" fill="#E8EDF3">20 MHz</text>
+<text x="508.8" y="485" font-size="17" fill="#D2DAE4">SCK at 4.5 V and</text>
+<text x="508.8" y="507.9" font-size="17" fill="#D2DAE4">above (10 MHz from</text>
+<text x="508.8" y="530.9" font-size="17" fill="#D2DAE4">2.5 V, 5 MHz from</text>
+<text x="508.8" y="553.8" font-size="17" fill="#D2DAE4">1.8 V)</text>
+<text x="508.8" y="589.2" font-size="16" fill="#9AA6B5">4.3, p. 5</text>
+<text x="739.2" y="455.4" font-size="30" font-weight="700" fill="#E8EDF3">5 ms</text>
+<text x="739.2" y="485" font-size="17" fill="#D2DAE4">self-timed write</text>
+<text x="739.2" y="507.9" font-size="17" fill="#D2DAE4">cycle, at most</text>
+<text x="739.2" y="589.2" font-size="16" fill="#9AA6B5">Features, p. 1</text>
+<text x="969.6" y="455.4" font-size="30" font-weight="700" fill="#E8EDF3">1 million</text>
+<text x="969.6" y="485" font-size="17" fill="#D2DAE4">write cycles</text>
+<text x="969.6" y="589.2" font-size="16" fill="#9AA6B5">Features, p. 1</text>
+</svg>

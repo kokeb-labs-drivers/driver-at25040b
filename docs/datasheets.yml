@@ -27,7 +27,7 @@ topics:
     section: Features; Description
     page: 1
     driver: "`Variant`, `CapacityBytes()`, `kPageSizeBytes`"
-    docs: [hardware, configuration]
+    docs: [hardware, configuration, bus]
   - topic: Pins and packages
     doc: ds
     section: 1 Pin Configurations, Table 1-1
@@ -46,19 +46,31 @@ topics:
     page: 5
     driver: "`kMaxClockHz`, `kMinCsHighNs`, `kCsSetupNs`, `kCsHoldNs`, `kDataSetupNs`, `kDataHoldNs`,
       `BusTimingAt()`, `kWriteCycleMaxUs`, `Config::write_timeout_us`"
-    docs: [hardware, porting, configuration]
+    docs: [hardware, porting, configuration, bus]
+  - topic: Output disable time (the rest of Table 4-3)
+    doc: ds
+    section: 4.3 AC Characteristics, Table 4-3 (continued)
+    page: 6
+    driver: "-"
+    docs: [bus]
   - topic: SPI modes, invalid opcodes, HOLD and the WP pin
     doc: ds
     section: 5 Serial Interface Description
     page: 6
     driver: "`kSpiMode`, `kMsbFirst`, `SpiInterface`, `GpioSet()`, `CtrlPin::WriteProtect`, `Error::Pin`"
-    docs: [hardware, porting, troubleshooting]
+    docs: [hardware, porting, troubleshooting, bus]
+  - topic: Several devices on one SPI bus
+    doc: ds
+    section: 5 Serial Interface Description, Figure 5-1
+    page: 7
+    driver: "-"
+    docs: [bus]
   - topic: Instruction set and A8 in the opcode
     doc: ds
     section: 6 Functional Description, Table 6-1
     page: 8
     driver: "`inc/at25040b_registers.hpp`, `detail::EepromBus`"
-    docs: [hardware, architecture]
+    docs: [hardware, architecture, bus]
   - topic: Write enable latch, WREN and WRDI
     doc: ds
     section: 6 Functional Description, Write Enable (WREN), Write Disable (WRDI)
@@ -82,7 +94,7 @@ topics:
     section: 6 Functional Description, Read Sequence (READ)
     page: 9
     driver: "`Read()`, `kReadChunkBytes`"
-    docs: [api-guide, architecture]
+    docs: [api-guide, architecture, bus]
   - topic: Page write, the page wrap and the self-timed write cycle
     doc: ds
     section: 6 Functional Description, Write Sequence (WRITE)
@@ -94,7 +106,7 @@ topics:
     section: 7 Timing Diagrams, Figures 7-1 to 7-8
     page: 10
     driver: "`detail::EepromBus`"
-    docs: [hardware, porting]
+    docs: [hardware, porting, bus]
   - topic: Ordering codes and part markings
     doc: ds
     section: 8 Ordering Code Detail; 9 Part Markings

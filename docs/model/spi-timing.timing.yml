@@ -1,0 +1,56 @@
+---
+kind: timing
+id: spi-timing
+title: SPI timing
+kicker: On the bus
+alt: >-
+  SPI timing of the AT25040B in mode 0: CS low frames the transfer, SI is read on each rising SCK edge and SO changes
+  after each falling edge, most significant bit first, with the Table 4-3 times for a 1.8 V to 5.5 V supply.
+reads: >-
+  The four lanes are CS, SCK, SI and SO, left to right in time. CS goes low, SCK idles low, the chip reads SI on the
+  rising edge and drives SO after the falling edge, from bit 7 to bit 0; bits 4 and 3 are left out, and SO returns
+  to high impedance after CS rises. The table gives each interval for the full supply range and the clock limit of
+  each supply range.
+bus: spi
+mode: {cpol: 0, cpha: 0}
+refs:
+  ac: {doc: ds, section: "4.3 AC Characteristics, Table 4-3", page: 5}
+  ac6: {doc: ds, section: "4.3 AC Characteristics, Table 4-3 (continued)", page: 6}
+  serial: {doc: ds, section: "5 Serial Interface Description", page: 6}
+  features: {doc: ds, section: "Features; Description", page: 1}
+signals:
+  - {id: cs, label: CS, wave: "10.........1."}
+  - {id: sck, label: SCK, wave: "0..nnn|nnn0..", clock: true}
+  - {id: si, label: SI, wave: "x..===|===x..", data: [b7, b6, b5, b2, b1, b0]}
+  - {id: so, label: SO, wave: "z..===|===.z.", data: [b7, b6, b5, b2, b1, b0], tone: teal}
+groups:
+  - {from: 3, to: 10, label: "8 bits, MSB first", ref: serial}
+params:
+  - {id: fsck18, symbol: fSCK, label: SCK clock frequency at VCC 1.8 V to 5.5 V, max: 5, unit: MHz, ref: ac}
+  - {id: fsck25, symbol: fSCK, label: SCK clock frequency at VCC 2.5 V to 5.5 V, max: 10, unit: MHz, ref: ac}
+  - {id: fsck45, symbol: fSCK, label: SCK clock frequency at VCC 4.5 V to 5.5 V, max: 20, unit: MHz, ref: ac}
+  - {id: tcss, symbol: tCSS, label: "CS setup time (100 ns from 2.5 V)", min: 200, unit: ns, ref: ac}
+  - {id: tcsh, symbol: tCSH, label: "CS hold time (100 ns from 2.5 V)", min: 200, unit: ns, ref: ac}
+  - {id: tcs, symbol: tCS, label: "CS high time between transfers (100 ns from 2.5 V)", min: 200, unit: ns, ref: ac}
+  - {id: twh, symbol: tWH, label: "SCK high time (40 ns from 2.5 V, 20 ns from 4.5 V)", min: 80, unit: ns, ref: ac}
+  - {id: twl, symbol: tWL, label: "SCK low time (40 ns from 2.5 V, 20 ns from 4.5 V)", min: 80, unit: ns, ref: ac}
+  - {id: tsu, symbol: tSU, label: "Data in setup time (40 ns from 2.5 V, 20 ns from 4.5 V)", min: 80, unit: ns,
+     ref: ac}
+  - {id: th, symbol: tH, label: "Data in hold time (40 ns from 2.5 V, 20 ns from 4.5 V)", min: 80, unit: ns, ref: ac}
+  - {id: tv, symbol: tV, label: "Output valid after the falling SCK edge (40 ns from 2.5 V, 20 ns from 4.5 V)",
+     max: 80, unit: ns, ref: ac}
+  - {id: tdis, symbol: tDIS, label: "Output disable time after CS rises (50 ns from 2.5 V, 25 ns from 4.5 V)",
+     max: 100, unit: ns, ref: ac6}
+marks:
+  - {param: tcss, signal: cs, from: 1, to: 3.5}
+  - {param: tcsh, signal: cs, from: 9.5, to: 11}
+  - {param: tcs, signal: cs, from: 11, to: 13}
+  - {param: twh, signal: sck, from: 7.5, to: 8}
+  - {param: twl, signal: sck, from: 8, to: 8.5}
+  - {param: tsu, signal: si, from: 4, to: 4.5}
+  - {param: th, signal: si, from: 4.5, to: 5}
+  - {param: tv, signal: so, from: 4, to: 4.5}
+  - {param: tdis, signal: so, from: 11, to: 12}
+notes:
+  - {text: "Values for the whole 1.8 V to 5.5 V range, which the driver uses by default.", ref: ac}
+  - {text: "The chip supports SPI modes 0 and 3; the datasheet describes mode 0.", ref: features}

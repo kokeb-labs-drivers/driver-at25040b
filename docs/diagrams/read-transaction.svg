@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="552" viewBox="0 0 640 552" role="img" aria-labelledby="read-transaction-title read-transaction-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="read-transaction-title">READ instruction</title>
+<desc id="read-transaction-desc">One READ instruction of the AT25040B: CS low, the opcode with address bit A8, the low address byte on SI, then data bytes on SO from that address onwards until CS rises.</desc>
+<rect x="0.5" y="0.5" width="639" height="551" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="44.4" font-size="13" font-weight="700" letter-spacing="1.2" fill="#7A360E">ON THE BUS</text>
+<text x="32" y="76.2" font-size="24" font-weight="700" fill="#0E1726">READ instruction</text>
+<text x="32" y="102.7" font-size="15" fill="#566070">Datasheet: 7 Timing Diagrams, Figures 7-1 to 7-8, p. 10; 6 Functional</text>
+<text x="32" y="124.5" font-size="15" fill="#566070">Description, Table 6-1, p. 8; 6 Functional Description, Read Sequence</text>
+<text x="32" y="146.2" font-size="15" fill="#566070">(READ), p. 9.</text>
+<rect x="32" y="162.2" width="576" height="1" fill="#E2E7EE"/>
+<path d="M88 254.6 L88 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M120.1 254.6 L120.1 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M152.2 254.6 L152.2 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M184.4 254.6 L184.4 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M216.5 254.6 L216.5 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M248.6 254.6 L248.6 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M280.8 254.6 L280.8 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M312.9 254.6 L312.9 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M345 254.6 L345 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M377.1 254.6 L377.1 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M409.2 254.6 L409.2 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M441.4 254.6 L441.4 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M473.5 254.6 L473.5 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M505.6 254.6 L505.6 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M537.8 254.6 L537.8 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M569.9 254.6 L569.9 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<path d="M602 254.6 L602 386.6" fill="none" stroke="#E2E7EE" stroke-width="1"/>
+<rect x="88" y="307.6" width="32.1" height="26" rx="0" fill="#F5F7FA"/>
+<rect x="377.1" y="307.6" width="224.9" height="26" rx="0" fill="#F5F7FA"/>
+<path d="M121.1 245.6 L121.1 240.6 L247.6 240.6 L247.6 245.6" fill="none" stroke="#64748B" stroke-width="1.4"/>
+<path d="M249.6 213.4 L249.6 208.4 L376.1 208.4 L376.1 213.4" fill="none" stroke="#64748B" stroke-width="1.4"/>
+<path d="M378.1 245.6 L378.1 240.6 L568.9 240.6 L568.9 245.6" fill="none" stroke="#64748B" stroke-width="1.4"/>
+<path d="M88 259.6 L120.1 259.6 L120.1 259.6 L120.1 285.6 L569.9 285.6 L569.9 285.6 L569.9 259.6 L602 259.6" fill="none" stroke="#2B3442" stroke-width="2"/>
+<path d="M88 314.6 L95 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M88 321.6 L102 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M88 328.6 L109 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M90 333.6 L116 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M97 333.6 L120.1 310.5" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M104 333.6 L120.1 317.5" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M111 333.6 L120.1 324.5" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M118 333.6 L120.1 331.5" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M88 307.6 L120.1 307.6" fill="none" stroke="#2B3442" stroke-width="1.6"/>
+<path d="M88 333.6 L120.1 333.6" fill="none" stroke="#2B3442" stroke-width="1.6"/>
+<path d="M377.1 314.6 L384.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M377.1 321.6 L391.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M377.1 328.6 L398.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M379.1 333.6 L405.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M386.1 333.6 L412.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M393.1 333.6 L419.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M400.1 333.6 L426.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M407.1 333.6 L433.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M414.1 333.6 L440.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M421.1 333.6 L447.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M428.1 333.6 L454.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M435.1 333.6 L461.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M442.1 333.6 L468.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M449.1 333.6 L475.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M456.1 333.6 L482.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M463.1 333.6 L489.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M470.1 333.6 L496.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M477.1 333.6 L503.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M484.1 333.6 L510.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M491.1 333.6 L517.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M498.1 333.6 L524.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M505.1 333.6 L531.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M512.1 333.6 L538.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M519.1 333.6 L545.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M526.1 333.6 L552.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M533.1 333.6 L559.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M540.1 333.6 L566.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M547.1 333.6 L573.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M554.1 333.6 L580.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M561.1 333.6 L587.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M568.1 333.6 L594.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M575.1 333.6 L601.1 307.6" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M582.1 333.6 L602 313.7" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M589.1 333.6 L602 320.7" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M596.1 333.6 L602 327.7" fill="none" stroke="#7C8798" stroke-width="1"/>
+<path d="M377.1 307.6 L602 307.6" fill="none" stroke="#2B3442" stroke-width="1.6"/>
+<path d="M377.1 333.6 L602 333.6" fill="none" stroke="#2B3442" stroke-width="1.6"/>
+<path d="M88 368.6 L377.1 368.6" fill="none" stroke="#7C8798" stroke-width="2"/>
+<path d="M569.9 368.6 L602 368.6" fill="none" stroke="#7C8798" stroke-width="2"/>
+<path d="M120.1 320.6 L125.1 307.6 L243.6 307.6 L248.6 320.6 L243.6 333.6 L125.1 333.6 Z" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M248.6 320.6 L253.6 307.6 L372.1 307.6 L377.1 320.6 L372.1 333.6 L253.6 333.6 Z" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M377.1 368.6 L382.1 355.6 L500.6 355.6 L505.6 368.6 L500.6 381.6 L382.1 381.6 Z" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M505.6 368.6 L510.6 355.6 L564.9 355.6 L569.9 368.6 L564.9 381.6 L510.6 381.6 Z" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="32" y="412.6" width="576" height="108.6" rx="10" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="184.4" y="229.7" font-size="14" font-weight="600" text-anchor="middle" fill="#334155">opcode</text>
+<text x="312.9" y="197.5" font-size="14" font-weight="600" text-anchor="middle" fill="#334155">byte address</text>
+<text x="473.5" y="229.7" font-size="14" font-weight="600" text-anchor="middle" fill="#334155">data out</text>
+<text x="32" y="278" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">CS</text>
+<text x="32" y="326" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SI</text>
+<text x="184.4" y="325.6" font-size="14" font-weight="600" text-anchor="middle" fill="#1E429F">0000 A011</text>
+<text x="312.9" y="325.6" font-size="14" font-weight="600" text-anchor="middle" fill="#1E429F">A7 to A0</text>
+<text x="32" y="374" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SO</text>
+<text x="441.4" y="373.6" font-size="14" font-weight="600" text-anchor="middle" fill="#0B5F59">byte n</text>
+<text x="537.8" y="373.6" font-size="14" font-weight="600" text-anchor="middle" fill="#0B5F59">n+1</text>
+<text x="46" y="441.1" font-size="17" font-weight="700" fill="#334155">Notes</text>
+<text x="46" y="461.4" font-size="15" fill="#334155">Each field is 8 SCK cycles, MSB first. In the opcode 0000 A011, A is</text>
+<text x="46" y="483.2" font-size="15" fill="#334155">address bit A8 on the AT25040B. The address counts up after each byte</text>
+<text x="46" y="504.9" font-size="15" fill="#334155">and rolls over from the last address to the first while CS is low.</text>
+</svg>

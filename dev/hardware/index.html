@@ -16,7 +16,7 @@
         <link rel="prev" href="../platforms/">
       
       
-        <link rel="next" href="../architecture/">
+        <link rel="next" href="../bus/">
       
       
         
@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the Microchip AT25010B, AT25020B and AT25040B SPI serial EEPROMs.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-at25040b/latest/hardware/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -516,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -852,6 +788,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On the bus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1278,7 +1242,7 @@ drawn from <a href="../hardware.yml"><code>docs/hardware.yml</code></a>.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The AT25040B seen from the top, in its SOIC-8 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-pins -->
 <p>SOIC-8, 8 pins (1 Pin Configurations, Table 1-1, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=2">p. 2</a>).</p>
@@ -1388,7 +1352,7 @@ after, whatever happened.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The AT25040B's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
 </details>
 <h2 id="connecting-it">Connecting it<a class="headerlink" href="#connecting-it" title="Permanent link">&para;</a></h2>
 <p>Figure 5-1 draws only the four SPI lines. The circuit adds what the driver and the chip need around them: WP on a
@@ -1402,7 +1366,7 @@ capacitor. The datasheet gives neither value; both are marked <code>*</code>.</p
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-parts -->
 <table>
@@ -1478,7 +1442,7 @@ capacitor. The datasheet gives neither value; both are marked <code>*</code>.</p
 </tbody>
 </table>
 <p>The driver states these as <code>constexpr</code> values in
-<a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> (<code>kSpiMode</code>, <code>kMaxClockHz</code>, <code>BusTimingAt()</code>, ...);
+<a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> (<code>kSpiMode</code>, <code>kMaxClockHz</code>, <code>BusTimingAt()</code>, ...);
 the <a href="../porting/#bus-requirements">Porting</a> page lists them.</p>
 <p>t<sub>CSS</sub> is CS setup before the first clock, t<sub>CSH</sub> CS hold after the last, and t<sub>CS</sub> the
 time CS stays high between instructions (Table 4-3). The datasheet gives no power-up time.</p>
@@ -1491,7 +1455,7 @@ time CS stays high between instructions (Table 4-3). The datasheet gives no powe
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Each row is one transfer, CS low from the first byte to the last, drawn left to right in the order the bytes are clocked; the top line of a byte is what the driver sends on MOSI, the bottom line what it keeps from MISO. Every opcode is 0000 followed by four bits, written out in binary. For READ and WRITE, bit 3 of the opcode carries address bit A8 on the AT25040B and the next byte holds A7 to A0; the driver sets A8 for addresses 0x100 to 0x1FF and never on the smaller parts. RDSR returns the status in its second byte; READ returns data from the third byte on, up to kReadChunkBytes per transfer; WRITE carries 1 to kPageSizeBytes data bytes inside one page. WREN, WRDI, WRSR and WRITE need no reply, and the driver passes no receive buffer for them. The opcodes come from inc/at25040b_registers.hpp and the byte layouts from detail::EepromBus in inc/at25040b_spi_interface.hpp.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_registers.hpp"><code>inc/at25040b_registers.hpp</code></a> <code>opcodes</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> <code>detail::EepromBus</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/inc/at25040b_types.hpp"><code>inc/at25040b_types.hpp</code></a> <code>kReadChunkBytes</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/docs/diagrams/figures/instruction-frames.py"><code>docs/diagrams/figures/instruction-frames.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_registers.hpp"><code>inc/at25040b_registers.hpp</code></a> <code>opcodes</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a> <code>detail::EepromBus</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_types.hpp"><code>inc/at25040b_types.hpp</code></a> <code>kReadChunkBytes</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/docs/diagrams/figures/instruction-frames.py"><code>docs/diagrams/figures/instruction-frames.py</code></a>.</p>
 </details>
 <table>
 <thead>
@@ -1774,13 +1738,13 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
         
         
           
-          <a href="../architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture">
+          <a href="../bus/" class="md-footer__link md-footer__link--next" aria-label="Next: On the bus">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Architecture
+                On the bus
               </div>
             </div>
             <div class="md-footer__button md-icon">

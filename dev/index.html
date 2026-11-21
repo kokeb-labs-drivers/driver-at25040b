@@ -100,72 +100,6 @@
   <meta property="og:description" content="C++20 driver for the Microchip AT25010B, AT25020B and AT25040B SPI serial EEPROMs.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-at25040b/latest/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -537,6 +471,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-you-get" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -585,6 +585,8 @@
   
     
     
+      
+        
       
         
       
@@ -864,6 +866,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-you-get" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -934,28 +1002,208 @@ MCU.</p>
 <a class="md-button" href="api-guide/">API guide</a>
 <a class="md-button" href="https://github.com/kokeb-labs-drivers/driver-at25040b">Source on GitHub</a></p>
 </div>
+<!-- generated: chip-summary -->
+<p>The <strong>AT25040B</strong> is a 1 Kbit, 2 Kbit or 4 Kbit serial EEPROM (128, 256 or 512 bytes) on an SPI bus: it keeps data with
+the power off, writes a page in one self-timed cycle and protects a quarter, a half or all of the array (Features, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1">p.
+1</a>).</p>
+<!-- /generated -->
+
+<figure class="kb-figure">
+<img src="diagrams/chip-hero.svg#only-light" alt="Overview of the AT25040B, a 1 Kbit, 2 Kbit or 4 Kbit serial EEPROM (128, 256 or 512 bytes) on an SPI bus: it keeps data with the power off, writes a page in one self-timed cycle and protects a quarter, a half or all of the array. A MCU talks to it over SPI mode 0 or 3. Headline figures: 1.8 to 5.5 V supply voltage; 512 x 8 array of the AT25040B (128 or 256 bytes on the smaller parts); 20 MHz SCK at 4.5 V and above (10 MHz from 2.5 V, 5 MHz from 1.8 V); 5 ms self-timed write cycle, at most; 1 million write cycles." width="1200" height="638"><img src="diagrams/chip-hero.dark.svg#only-dark" alt="Overview of the AT25040B, a 1 Kbit, 2 Kbit or 4 Kbit serial EEPROM (128, 256 or 512 bytes) on an SPI bus: it keeps data with the power off, writes a page in one self-timed cycle and protects a quarter, a half or all of the array. A MCU talks to it over SPI mode 0 or 3. Headline figures: 1.8 to 5.5 V supply voltage; 512 x 8 array of the AT25040B (128 or 256 bytes on the smaller parts); 20 MHz SCK at 4.5 V and above (10 MHz from 2.5 V, 5 MHz from 1.8 V); 5 ms self-timed write cycle, at most; 1 million write cycles." width="1200" height="638">
+<figcaption>AT25040B</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The AT25040B in the middle, drawn as its SOIC-8 package. On the left the MCU that runs the driver, joined to it by SPI mode 0 or 3. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-capabilities.svg#only-light" alt="Capability map of the AT25040B: Sequential read (supported): Reads one byte or the whole array in one transfer; the address counter rolls over at the top; Page write (supported): Writes up to an 8-byte page in one self-timed cycle, split at page boundaries, no erase first; Status register (supported): Reads ready/busy, the write enable latch and the block protection bits; Block write protection (supported): Makes the top quarter, the top half or all of the array read-only, kept without power; Write protect and latch (supported): Blocks writes with the WP pin and the write enable latch; the driver releases WP only while it writes; Three densities (supported): One driver for the 128, 256 and 512 byte parts; the AT25040B carries address bit A8 in the opcode; SPI modes 0 and 3 (supported): Publishes the mode, bit order and clock and select timing for each supply voltage; HOLD pin (not covered): Pauses a transfer while SCK is low; the driver never uses it, tie the pin to VCC." width="1200" height="943" loading="lazy"><img src="diagrams/chip-capabilities.dark.svg#only-dark" alt="Capability map of the AT25040B: Sequential read (supported): Reads one byte or the whole array in one transfer; the address counter rolls over at the top; Page write (supported): Writes up to an 8-byte page in one self-timed cycle, split at page boundaries, no erase first; Status register (supported): Reads ready/busy, the write enable latch and the block protection bits; Block write protection (supported): Makes the top quarter, the top half or all of the array read-only, kept without power; Write protect and latch (supported): Blocks writes with the WP pin and the write enable latch; the driver releases WP only while it writes; Three densities (supported): One driver for the 128, 256 and 512 byte parts; the AT25040B carries address bit A8 in the opcode; SPI modes 0 and 3 (supported): Publishes the mode, bit order and clock and select timing for each supply voltage; HOLD pin (not covered): Pauses a transfer while SCK is low; the driver never uses it, tie the pin to VCC." width="1200" height="943" loading="lazy">
+<figcaption>What the AT25040B does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the AT25040B: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="where-it-is-used">Where it is used<a class="headerlink" href="#where-it-is-used" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-uses -->
+<ul>
+<li>Industrial and commercial equipment: where low power and low-voltage operation are essential</li>
+</ul>
+<p>Uses named by the datasheet (Features, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1">p.
+1</a>).</p>
+<!-- /generated -->
+
+<h2 id="inside-the-chip">Inside the chip<a class="headerlink" href="#inside-the-chip" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-blocks.svg#only-light" alt="Block diagram of the AT25040B: its function blocks, how they connect and which package pins reach each block." width="1200" height="847" loading="lazy"><img src="diagrams/chip-blocks.dark.svg#only-dark" alt="Block diagram of the AT25040B: its function blocks, how they connect and which package pins reach each block." width="1200" height="847" loading="lazy">
+<figcaption>Inside the AT25040B</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The AT25040B's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="pins-and-wiring">Pins and wiring<a class="headerlink" href="#pins-and-wiring" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-pinout.svg#only-light" alt="Pinout of the AT25040B in SOIC-8, top view: 8 pins, each with its name, its electrical type as a colour and the driver hook that uses it." width="1046" height="441" loading="lazy"><img src="diagrams/chip-pinout.dark.svg#only-dark" alt="Pinout of the AT25040B in SOIC-8, top view: 8 pins, each with its name, its electrical type as a colour and the driver hook that uses it." width="1046" height="441" loading="lazy">
+<figcaption>AT25040B pinout, SOIC-8</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The AT25040B seen from the top, in its SOIC-8 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-wiring-typical.svg#only-light" alt="Wiring of the AT25040B for the Typical wiring: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SI (Transfer()); MCU SPI MISO to SO (Transfer()); MCU GPIO / CS to CS (Transfer()); MCU GPIO to WP (GpioSet(CtrlPin::WriteProtect)). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="999" loading="lazy"><img src="diagrams/chip-wiring-typical.dark.svg#only-dark" alt="Wiring of the AT25040B for the Typical wiring: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SI (Transfer()); MCU SPI MISO to SO (Transfer()); MCU GPIO / CS to CS (Transfer()); MCU GPIO to WP (GpioSet(CtrlPin::WriteProtect)). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="999" loading="lazy">
+<figcaption>Wiring: Typical wiring</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the AT25040B in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-frame-memory.svg#only-light" alt="READ and WRITE instruction of the AT25040B, 24 bits, most significant bit first. READ: 0000 (bits 23 to 20), A8 (bit 19), 011 (bits 18 to 16), address A7 to A0 (bits 15 to 8), any value (ignored) (bits 7 to 0); Data out: high impedance (bits 23 to 8), data D7 to D0 (bits 7 to 0); WRITE: 0000 (bits 23 to 20), A8 (bit 19), 010 (bits 18 to 16), address A7 to A0 (bits 15 to 8), data D7 to D0 (bits 7 to 0). Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="752" loading="lazy"><img src="diagrams/chip-frame-memory.dark.svg#only-dark" alt="READ and WRITE instruction of the AT25040B, 24 bits, most significant bit first. READ: 0000 (bits 23 to 20), A8 (bit 19), 011 (bits 18 to 16), address A7 to A0 (bits 15 to 8), any value (ignored) (bits 7 to 0); Data out: high impedance (bits 23 to 8), data D7 to D0 (bits 7 to 0); WRITE: 0000 (bits 23 to 20), A8 (bit 19), 010 (bits 18 to 16), address A7 to A0 (bits 15 to 8), data D7 to D0 (bits 7 to 0). Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="752" loading="lazy">
+<figcaption>AT25040B: READ and WRITE instruction</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One READ and WRITE instruction of the AT25040B, 24 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-frame-status.svg#only-light" alt="RDSR and WRSR instruction of the AT25040B, 16 bits, most significant bit first. RDSR: 0000 X101 (bits 15 to 8), any value (ignored) (bits 7 to 0); Status: high impedance (bits 15 to 8), status register (bits 7 to 0); WRSR: 0000 X001 (bits 15 to 8), status register (BP1 and BP0 in bits 3 and 2) (bits 7 to 0). The status register field of the Status row: bit 7 X7, bit 6 X6, bit 5 X5, bit 4 X4, bit 3 BP1, bit 2 BP0, bit 1 WEN, bit 0 RDY. Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="892" loading="lazy"><img src="diagrams/chip-frame-status.dark.svg#only-dark" alt="RDSR and WRSR instruction of the AT25040B, 16 bits, most significant bit first. RDSR: 0000 X101 (bits 15 to 8), any value (ignored) (bits 7 to 0); Status: high impedance (bits 15 to 8), status register (bits 7 to 0); WRSR: 0000 X001 (bits 15 to 8), status register (BP1 and BP0 in bits 3 and 2) (bits 7 to 0). The status register field of the Status row: bit 7 X7, bit 6 X6, bit 5 X5, bit 4 X4, bit 3 BP1, bit 2 BP0, bit 1 WEN, bit 0 RDY. Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="892" loading="lazy">
+<figcaption>AT25040B: RDSR and WRSR instruction</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One RDSR and WRSR instruction of the AT25040B, 16 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits. The table at the bottom names each bit of the status register field.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/inc/at25040b_spi_interface.hpp"><code>inc/at25040b_spi_interface.hpp</code></a>.</p>
+</details>
+<p>The pin tables, the full schematic and the timing are on <a href="hardware/">Hardware</a>.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Wire the chip as above, write the port for your MCU (<a href="porting/">Porting</a>), then:</p>
+<!-- generated: quickstart-code -->
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"at25040b.hpp"</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kt">int</span><span class="w"> </span><span class="nf">read_board_id</span><span class="p">(</span><span class="n">MyPort</span><span class="o">&amp;</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="n">at25040b</span><span class="o">::</span><span class="n">AT25040B</span><span class="o">&lt;</span><span class="n">MyPort</span><span class="o">&gt;</span><span class="w"> </span><span class="n">eeprom</span><span class="p">(</span><span class="n">port</span><span class="p">);</span><span class="w"> </span><span class="c1">// AT25040B, identity check on; no I/O yet</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eeprom</span><span class="p">.</span><span class="n">EnsureInitialized</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 1. bus up, identity check</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">);</span><span class="w"> </span><span class="c1">//    NoDevice: nothing on MISO. DeviceIdMismatch: wiring, WP</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eeprom</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 2. eight bytes from address 0</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">);</span><span class="w">    </span><span class="c1">//    Timeout: a write cycle that never ends</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 3. id holds what the chip sent: one READ, so check its CRC</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<!-- /generated -->
+
+<p>Every step, with the port and what to check when it does not work: <a href="quickstart/">Quickstart</a>.</p>
+<h2 id="driver-coverage">Driver coverage<a class="headerlink" href="#driver-coverage" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-coverage -->
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>What the chip does</th>
+<th>Driver API</th>
+<th>Registers</th>
+<th>Status</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sequential read</td>
+<td>Reads one byte or the whole array in one transfer; the address counter rolls over at the top</td>
+<td><code>Read</code></td>
+<td><code>kRead</code>, <code>kOpcodeA8</code></td>
+<td>Supported</td>
+<td>6, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=9">p. 9</a></td>
+</tr>
+<tr>
+<td>Page write</td>
+<td>Writes up to an 8-byte page in one self-timed cycle, split at page boundaries, no erase first</td>
+<td><code>Write</code>, <code>Verify::ReadBack</code></td>
+<td><code>kWrite</code>, <code>kWren</code></td>
+<td>Supported</td>
+<td>6, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=9">p. 9</a></td>
+</tr>
+<tr>
+<td>Status register</td>
+<td>Reads ready/busy, the write enable latch and the block protection bits</td>
+<td><code>ReadStatus</code>, <code>GetLastStatusByte</code></td>
+<td><code>kRdsr</code>, <code>kStatusRdy</code>, <code>kStatusWen</code>, <code>kStatusBusyByte</code></td>
+<td>Supported</td>
+<td>6, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=8">p. 8</a></td>
+</tr>
+<tr>
+<td>Block write protection</td>
+<td>Makes the top quarter, the top half or all of the array read-only, kept without power</td>
+<td><code>SetBlockProtection</code>, <code>GetBlockProtection</code>, <code>BlockProtect::UpperHalf</code></td>
+<td><code>kWrsr</code>, <code>kStatusBp0</code>, <code>kStatusBp1</code></td>
+<td>Supported</td>
+<td>6, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=9">p. 9</a></td>
+</tr>
+<tr>
+<td>Write protect and latch</td>
+<td>Blocks writes with the WP pin and the write enable latch; the driver releases WP only while it writes</td>
+<td><code>GpioSet</code>, <code>CtrlPin::WriteProtect</code></td>
+<td><code>kWren</code>, <code>kWrdi</code></td>
+<td>Supported</td>
+<td>6, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=8">p. 8</a></td>
+</tr>
+<tr>
+<td>Three densities</td>
+<td>One driver for the 128, 256 and 512 byte parts; the AT25040B carries address bit A8 in the opcode</td>
+<td><code>Variant</code>, <code>GetCapacityBytes</code></td>
+<td><code>kOpcodeA8</code>, <code>kAddressA8</code></td>
+<td>Supported</td>
+<td>6, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=8">p. 8</a></td>
+</tr>
+<tr>
+<td>SPI modes 0 and 3</td>
+<td>Publishes the mode, bit order and clock and select timing for each supply voltage</td>
+<td><code>kSpiMode</code>, <code>kSpiModeAlternate</code>, <code>kMaxClockHz</code>, <code>BusTimingAt</code></td>
+<td>-</td>
+<td>Supported</td>
+<td>4.3, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=5">p. 5</a></td>
+</tr>
+<tr>
+<td>HOLD pin</td>
+<td>Pauses a transfer while SCK is low; the driver never uses it, tie the pin to VCC</td>
+<td>-</td>
+<td>-</td>
+<td>Not covered</td>
+<td>5, <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=6">p. 6</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Supported</strong>: the driver covers it and a host test checks it; <strong>Not covered</strong>: the chip has it and the driver leaves it
+alone.</p>
+<p>From <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <code>kokeb-docs hardware --check</code> confirms that every API name is in
+<code>inc/at25040b.hpp</code>, <code>inc/at25040b_types.hpp</code>, <code>inc/at25040b_spi_interface.hpp</code> and every register in
+<code>inc/at25040b_registers.hpp</code>.</p>
+<!-- /generated -->
+
 <p>The driver has no platform code. You give it a small class that brings the bus up, moves bytes and waits; it does
 the rest: the identity check, the instruction framing with A8, the page split, the write cycle, the WP pin and the
 checks that catch a dead or noisy bus.</p>
-<div class="kb-chip">
-<div class="kb-chip__head">
-<span class="kb-chip__kicker">SPI serial EEPROM</span>
-<span class="kb-chip__name">AT25010B / AT25020B / AT25040B</span>
-<span class="kb-chip__vendor">Microchip (Atmel)</span>
-</div>
-<dl>
-<dt>Memory</dt>
-<dd>128, 256 or 512 bytes; 8-byte pages; 1,000,000 write cycles, 100 years retention</dd>
-<dt>Interface</dt>
-<dd>SPI mode 0 or 3; 20 MHz from 4.5 V, 10 MHz from 2.5 V, 5 MHz from 1.8 V</dd>
-<dt>Write cycle</dt>
-<dd>Self-timed, 5 ms at most; no erase before a write</dd>
-<dt>Protection</dt>
-<dd>WP pin, write enable latch (WREN, WRDI), non-volatile block protection of a quarter, a half or all of the array</dd>
-<dt>Supply</dt>
-<dd>1.8 V to 5.5 V</dd>
-</dl>
-</div>
 <h2 id="what-you-get">What you get<a class="headerlink" href="#what-you-get" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>One object per chip.</strong> <code>AT25040B&lt;YourPort&gt;</code> takes a reference to your port and does no I/O until

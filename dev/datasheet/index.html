@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the Microchip AT25010B, AT25020B and AT25040B SPI serial EEPROMs.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-at25040b/latest/datasheet/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -1064,7 +1000,7 @@ numbers are the datasheet's own (the printed page numbers).</p>
 <td>Features; Description</td>
 <td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=1">p. 1</a></td>
 <td><code>Variant</code>, <code>CapacityBytes()</code>, <code>kPageSizeBytes</code></td>
-<td><a href="../hardware/">Hardware</a>, <a href="../configuration/">Configuration</a></td>
+<td><a href="../hardware/">Hardware</a>, <a href="../configuration/">Configuration</a>, <a href="../bus/">On the bus</a></td>
 </tr>
 <tr>
 <td>Pins and packages</td>
@@ -1085,21 +1021,35 @@ numbers are the datasheet's own (the printed page numbers).</p>
 <td>4.3 AC Characteristics, Table 4-3</td>
 <td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=5">p. 5</a></td>
 <td><code>kMaxClockHz</code>, <code>kMinCsHighNs</code>, <code>kCsSetupNs</code>, <code>kCsHoldNs</code>, <code>kDataSetupNs</code>, <code>kDataHoldNs</code>, <code>BusTimingAt()</code>, <code>kWriteCycleMaxUs</code>, <code>Config::write_timeout_us</code></td>
-<td><a href="../hardware/">Hardware</a>, <a href="../porting/">Porting</a>, <a href="../configuration/">Configuration</a></td>
+<td><a href="../hardware/">Hardware</a>, <a href="../porting/">Porting</a>, <a href="../configuration/">Configuration</a>, <a href="../bus/">On the bus</a></td>
+</tr>
+<tr>
+<td>Output disable time (the rest of Table 4-3)</td>
+<td>4.3 AC Characteristics, Table 4-3 (continued)</td>
+<td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=6">p. 6</a></td>
+<td>-</td>
+<td><a href="../bus/">On the bus</a></td>
 </tr>
 <tr>
 <td>SPI modes, invalid opcodes, HOLD and the WP pin</td>
 <td>5 Serial Interface Description</td>
 <td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=6">p. 6</a></td>
 <td><code>kSpiMode</code>, <code>kMsbFirst</code>, <code>SpiInterface</code>, <code>GpioSet()</code>, <code>CtrlPin::WriteProtect</code>, <code>Error::Pin</code></td>
-<td><a href="../hardware/">Hardware</a>, <a href="../porting/">Porting</a>, <a href="../troubleshooting/">Troubleshooting</a></td>
+<td><a href="../hardware/">Hardware</a>, <a href="../porting/">Porting</a>, <a href="../troubleshooting/">Troubleshooting</a>, <a href="../bus/">On the bus</a></td>
+</tr>
+<tr>
+<td>Several devices on one SPI bus</td>
+<td>5 Serial Interface Description, Figure 5-1</td>
+<td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=7">p. 7</a></td>
+<td>-</td>
+<td><a href="../bus/">On the bus</a></td>
 </tr>
 <tr>
 <td>Instruction set and A8 in the opcode</td>
 <td>6 Functional Description, Table 6-1</td>
 <td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=8">p. 8</a></td>
 <td><code>inc/at25040b_registers.hpp</code>, <code>detail::EepromBus</code></td>
-<td><a href="../hardware/">Hardware</a>, <a href="../architecture/">Architecture</a></td>
+<td><a href="../hardware/">Hardware</a>, <a href="../architecture/">Architecture</a>, <a href="../bus/">On the bus</a></td>
 </tr>
 <tr>
 <td>Write enable latch, WREN and WRDI</td>
@@ -1127,7 +1077,7 @@ numbers are the datasheet's own (the printed page numbers).</p>
 <td>6 Functional Description, Read Sequence (READ)</td>
 <td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=9">p. 9</a></td>
 <td><code>Read()</code>, <code>kReadChunkBytes</code></td>
-<td><a href="../api-guide/">API guide</a>, <a href="../architecture/">Architecture</a></td>
+<td><a href="../api-guide/">API guide</a>, <a href="../architecture/">Architecture</a>, <a href="../bus/">On the bus</a></td>
 </tr>
 <tr>
 <td>Page write, the page wrap and the self-timed write cycle</td>
@@ -1141,7 +1091,7 @@ numbers are the datasheet's own (the printed page numbers).</p>
 <td>7 Timing Diagrams, Figures 7-1 to 7-8</td>
 <td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf#page=10">p. 10</a></td>
 <td><code>detail::EepromBus</code></td>
-<td><a href="../hardware/">Hardware</a>, <a href="../porting/">Porting</a></td>
+<td><a href="../hardware/">Hardware</a>, <a href="../porting/">Porting</a>, <a href="../bus/">On the bus</a></td>
 </tr>
 <tr>
 <td>Ordering codes and part markings</td>

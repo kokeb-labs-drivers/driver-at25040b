@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the Microchip AT25010B, AT25020B and AT25040B SPI serial EEPROMs.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-at25040b/latest/api-guide/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -1270,7 +1206,7 @@ zeroed.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, one card per step of Write(); a pill on a card names the error that step can return, and any step that sends a transfer also returns Bus when the transfer fails. The first two steps read the status (until no write cycle runs, confirmed by a second read) and refuse a range that overlaps the block-protected part before anything else is sent. WP is then released, if the port drives it. The band in the middle repeats once per 8-byte page: WREN and a status read that must show WEN = 1, the WRITE, a wait for the write cycle polled every kPollIntervalUs up to Config::write_timeout_us, a status that must show WEN = 0 again (still 1 means the chip ignored the WRITE), and only when the call passes Verify::ReadBack a read-back of the page. After the last page, or the first failure, WP is parked; a failure after WREN also sends WRDI. The steps and errors are read from writeRange(), writePage(), enableWrite(), finishWriteCycle(), waitIdle() and withWriteAccess() in src/at25040b.ipp.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>Write</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>writeRange</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>writePage</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>enableWrite</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>finishWriteCycle</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>waitIdle</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>withWriteAccess</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/8bc1b8f7566b8e4f038d5512926a3434a953b9a3/docs/diagrams/figures/write-path.py"><code>docs/diagrams/figures/write-path.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>Write</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>writeRange</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>writePage</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>enableWrite</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>finishWriteCycle</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>waitIdle</code>; <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/src/at25040b.ipp"><code>src/at25040b.ipp</code></a> <code>withWriteAccess</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-at25040b/blob/507375e35b4e0689190da2b21fb792b310025b4c/docs/diagrams/figures/write-path.py"><code>docs/diagrams/figures/write-path.py</code></a>.</p>
 </details>
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">at25040b</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="nf">WriteRecord</span><span class="p">(</span><span class="n">Eeprom</span><span class="o">&amp;</span><span class="w"> </span><span class="n">eeprom</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="c1">// Split at 8-byte pages, WREN per page, wait for each write cycle; Verify::ReadBack reads each</span>

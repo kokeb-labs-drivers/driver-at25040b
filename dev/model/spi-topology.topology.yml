@@ -1,0 +1,25 @@
+---
+kind: topology
+id: spi-topology
+title: Several AT25040B on one SPI bus
+kicker: Several devices
+alt: >-
+  An SPI bus on which a microcontroller and several AT25040B share SCK, SI and SO, each device selected by its own
+  chip select line from the host.
+reads: >-
+  The MCU on top and the AT25040B devices under it connect to the rails SCK, SI and SO on the right; the dashed card
+  stands for the devices in between. Each AT25040B has its own CS from the MCU, and an unselected device ignores SI
+  and keeps SO in high impedance.
+style: bus
+refs:
+  spi: {doc: ds, section: "5 Serial Interface Description, Figure 5-1", page: 7}
+  serial: {doc: ds, section: "5 Serial Interface Description", page: 6}
+host: {label: MCU, detail: "SPI master, one select line per device"}
+nodes:
+  - {label: AT25040B, detail: CS from SS0, ref: spi}
+  - {more: true, label: "…", detail: CS from SS1 and SS2}
+  - {label: AT25040B, detail: CS from SS3, ref: spi}
+shared: [SCK, SI (MOSI), SO (MISO)]
+facts:
+  - {text: "Each device has its own chip select; SCK, SI and SO are shared", ref: spi}
+  - {text: "A device whose CS is high ignores SI and keeps SO in high impedance", ref: serial}

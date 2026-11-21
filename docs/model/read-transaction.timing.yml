@@ -1,0 +1,30 @@
+---
+kind: timing
+id: read-transaction
+title: READ instruction
+kicker: On the bus
+alt: >-
+  One READ instruction of the AT25040B: CS low, the opcode with address bit A8, the low address byte on SI, then
+  data bytes on SO from that address onwards until CS rises.
+reads: >-
+  The three lanes are CS, SI and SO, left to right in time, one field per byte. While CS is low the host sends on SI
+  the opcode 0000 A011, whose bit 3 is address bit A8, and the address bits A7 to A0; the chip then sends on SO the
+  byte at that address and the next ones. SO stays high impedance until the data and again after CS rises.
+bus: transaction
+refs:
+  instr: {doc: ds, section: "6 Functional Description, Table 6-1", page: 8}
+  readseq: {doc: ds, section: "6 Functional Description, Read Sequence (READ)", page: 9}
+  timing: {doc: ds, section: "7 Timing Diagrams, Figures 7-1 to 7-8", page: 10}
+signals:
+  - {id: cs, label: CS, wave: "10.............1"}
+  - {id: si, label: SI, wave: "x=...=...x......", data: ["0000 A011", "A7 to A0"]}
+  - {id: so, label: SO, wave: "z........=...=.z", data: ["byte n", "n+1"], tone: teal}
+groups:
+  - {from: 1, to: 5, label: opcode}
+  - {from: 5, to: 9, label: byte address}
+  - {from: 9, to: 15, label: data out}
+notes:
+  - {text: "Each field is 8 SCK cycles, MSB first.", ref: timing}
+  - {text: "In the opcode 0000 A011, A is address bit A8 on the AT25040B.", ref: instr}
+  - {text: "The address counts up after each byte and rolls over from the last address to the first while CS is low.",
+     ref: readseq}

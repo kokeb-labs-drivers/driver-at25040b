@@ -8,6 +8,7 @@ schema: 1
 chip: AT25040B
 
 refs:
+  cover: {doc: ds, section: "Features", page: 1}
   pinout: {doc: ds, section: "1 Pin Configurations, Table 1-1", page: 2}
   blocks: {doc: ds, section: "3 Block Diagram, Figure 3-1", page: 3}
   dc: {doc: ds, section: "4.2 DC Characteristics, Table 4-2", page: 4}
@@ -15,12 +16,161 @@ refs:
   serial: {doc: ds, section: "5 Serial Interface Description", page: 6}
   spi: {doc: ds, section: "5 Serial Interface Description, Figure 5-1", page: 7}
   status: {doc: ds, section: "6 Functional Description, Tables 6-2 and 6-3", page: 8}
+  instr: {doc: ds, section: "6 Functional Description, Table 6-1", page: 8}
+  blockprot: {doc: ds, section: "6 Functional Description, Write Status Register (WRSR), Table 6-4", page: 9}
+  readseq: {doc: ds, section: "6 Functional Description, Read Sequence (READ)", page: 9}
+  writeseq: {doc: ds, section: "6 Functional Description, Write Sequence (WRITE)", page: 9}
+  pkgtypes: {doc: ds, section: "10 Ordering Information, Package Type", page: 16}
 
 # The 8-lead SOIC and TSSOP share these numbers; the UDFN, XDFN and VFBGA number the same functions 1 to 8.
 package:
   type: SOIC-8
   pins: 8
   ref: pinout
+  variants:
+    - {id: tssop, type: TSSOP-8, pins: 8, size: "4.40 mm body", ordering: "AT25040B-XHL", ref: pkgtypes}
+    - {id: udfn, type: UDFN-8, pins: 8, size: "2.00 x 3.00 mm body, 0.50 mm pitch", ordering: "AT25040B-MAHL",
+       ref: pkgtypes}
+    - {id: xdfn, type: XDFN-8, pins: 8, size: "1.80 x 2.20 mm body, 0.40 mm pitch", ordering: "AT25040B-MEHL",
+       ref: pkgtypes}
+    - {id: vfbga, type: VFBGA-8, pins: 8, size: "1.50 x 2.00 mm body, 0.50 mm pitch", ordering: "AT25040B-CUL",
+       ref: pkgtypes}
+
+supply:
+  - {name: VCC, min_v: 1.8, max_v: 5.5, ref: dc}
+
+# The chip-first README: what the chip is and does, where it is used, how the driver covers it, what the SPI
+# instructions carry. `kokeb-docs figures` draws chip-hero, chip-capabilities and the chip-frame figures from it,
+# `kokeb-docs gen` the README's chip-summary, chip-uses and chip-coverage regions.
+overview:
+  summary: >-
+    a 1 Kbit, 2 Kbit or 4 Kbit serial EEPROM (128, 256 or 512 bytes) on an SPI bus: it keeps data with the power
+    off, writes a page in one self-timed cycle and protects a quarter, a half or all of the array
+  category: SPI serial EEPROM
+  ref: cover
+  applications:
+    - {label: Industrial and commercial equipment, detail: "where low power and low-voltage operation are essential",
+       ref: cover}
+  specs:
+    - {value: "1.8 to 5.5 V", label: supply voltage, ref: dc}
+    - {value: "512 x 8", label: "array of the AT25040B (128 or 256 bytes on the smaller parts)", ref: cover}
+    - {value: "20 MHz", label: "SCK at 4.5 V and above (10 MHz from 2.5 V, 5 MHz from 1.8 V)", ref: ac}
+    - {value: "5 ms", label: "self-timed write cycle, at most", ref: cover}
+    - {value: "1 million", label: write cycles, ref: cover}
+  system:
+    host: MCU
+    bus: SPI mode 0 or 3
+
+# Headers the capability `api` and `registers` names are checked against.
+driver:
+  api: [inc/at25040b.hpp, inc/at25040b_types.hpp, inc/at25040b_spi_interface.hpp]
+  registers: [inc/at25040b_registers.hpp]
+
+capabilities:
+  - {id: read, title: Sequential read, icon: memory, status: supported, ref: readseq,
+     what: "Reads one byte or the whole array in one transfer; the address counter rolls over at the top",
+     api: [Read], registers: [kRead, kOpcodeA8]}
+  - {id: write, title: Page write, icon: table, status: supported, ref: writeseq,
+     what: "Writes up to an 8-byte page in one self-timed cycle, split at page boundaries, no erase first",
+     api: [Write, "Verify::ReadBack"], registers: [kWrite, kWren]}
+  - {id: status, title: Status register, icon: gauge, status: supported, ref: status,
+     what: "Reads ready/busy, the write enable latch and the block protection bits",
+     api: [ReadStatus, GetLastStatusByte], registers: [kRdsr, kStatusRdy, kStatusWen, kStatusBusyByte]}
+  - {id: blockprot, title: Block write protection, icon: shield, status: supported, ref: blockprot,
+     what: "Makes the top quarter, the top half or all of the array read-only, kept without power",
+     api: [SetBlockProtection, GetBlockProtection, "BlockProtect::UpperHalf"],
+     registers: [kWrsr, kStatusBp0, kStatusBp1]}
+  - {id: wp, title: Write protect and latch, icon: lock, status: supported, ref: instr,
+     what: "Blocks writes with the WP pin and the write enable latch; the driver releases WP only while it writes",
+     api: [GpioSet, "CtrlPin::WriteProtect"], registers: [kWren, kWrdi]}
+  - {id: variants, title: Three densities, icon: tag, status: supported, ref: instr,
+     what: "One driver for the 128, 256 and 512 byte parts; the AT25040B carries address bit A8 in the opcode",
+     api: [Variant, GetCapacityBytes], registers: [kOpcodeA8, kAddressA8]}
+  - {id: spi, title: SPI modes 0 and 3, icon: bus, status: supported, ref: ac,
+     what: "Publishes the mode, bit order and clock and select timing for each supply voltage",
+     api: [kSpiMode, kSpiModeAlternate, kMaxClockHz, BusTimingAt]}
+  - {id: hold, title: HOLD pin, icon: stop, status: not-covered, ref: serial,
+     what: "Pauses a transfer while SCK is low; the driver never uses it, tie the pin to VCC"}
+
+frames:
+  - id: memory
+    title: READ and WRITE instruction
+    description: >-
+      Each instruction is one CS-low transfer: the opcode with address bit A8 (AT25040B), the address byte, then
+      the data byte, shown here for one byte.
+    bits: 24
+    ref: instr
+    rows:
+      - label: READ
+        sub: "SI, 0000 A011"
+        fields:
+          - {name: "0000", bits: [23, 20], tone: slate}
+          - {name: A8, bits: 19, tone: amber}
+          - {name: "011", bits: [18, 16], tone: blue}
+          - {name: address A7 to A0, bits: [15, 8], tone: blue, short: address}
+          - {name: any value (ignored), bits: [7, 0], tone: slate, short: ignored}
+      - label: Data out
+        sub: "SO, after READ"
+        fields:
+          - {name: high impedance, bits: [23, 8], tone: slate, short: Hi-Z}
+          - {name: data D7 to D0, bits: [7, 0], tone: green, short: data}
+      - label: WRITE
+        sub: "SI, 0000 A010"
+        fields:
+          - {name: "0000", bits: [23, 20], tone: slate}
+          - {name: A8, bits: 19, tone: amber}
+          - {name: "010", bits: [18, 16], tone: blue}
+          - {name: address A7 to A0, bits: [15, 8], tone: blue, short: address}
+          - {name: data D7 to D0, bits: [7, 0], tone: green, short: data}
+    waveform:
+      spi_mode: 0
+      select: CS
+      clock: SCK
+      lanes:
+        - {name: SI, row: READ}
+        - {name: SO, row: Data out}
+  - id: status
+    title: RDSR and WRSR instruction
+    description: >-
+      The status register moves in one 16-bit transfer; an RDSR reply of all ones means a write cycle is running.
+    bits: 16
+    ref: status
+    rows:
+      - label: RDSR
+        sub: "SI, 0000 X101"
+        fields:
+          - {name: "0000 X101", bits: [15, 8], tone: blue}
+          - {name: any value (ignored), bits: [7, 0], tone: slate, short: ignored}
+      - label: Status
+        sub: "SO, after RDSR"
+        fields:
+          - {name: high impedance, bits: [15, 8], tone: slate, short: Hi-Z}
+          - {name: status register, bits: [7, 0], tone: violet, short: STATUS}
+      - label: WRSR
+        sub: "SI, 0000 X001"
+        fields:
+          - {name: "0000 X001", bits: [15, 8], tone: blue}
+          - {name: status register (BP1 and BP0 in bits 3 and 2), bits: [7, 0], tone: amber, short: "BP1, BP0"}
+    decode:
+      row: Status
+      field: status register
+      ref: status
+      bits:
+        - {bit: 7, name: X7}
+        - {bit: 6, name: X6}
+        - {bit: 5, name: X5}
+        - {bit: 4, name: X4}
+        - {bit: 3, name: BP1}
+        - {bit: 2, name: BP0}
+        - {bit: 1, name: WEN}
+        - {bit: 0, name: RDY}
+    waveform:
+      spi_mode: 0
+      select: CS
+      clock: SCK
+      lanes:
+        - {name: SI, row: RDSR}
+        - {name: SO, row: Status}
 
 hooks:
   - {id: transfer, call: "Transfer()", kind: spi, source: inc/at25040b_spi_interface.hpp, symbol: Transfer}

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="720" viewBox="0 0 640 720" role="img" aria-labelledby="spi-topology-title spi-topology-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="spi-topology-title">Several AT25040B on one SPI bus</title>
+<desc id="spi-topology-desc">An SPI bus on which a microcontroller and several AT25040B share SCK, SI and SO, each device selected by its own chip select line from the host.</desc>
+<rect x="0.5" y="0.5" width="639" height="719" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="44.4" font-size="13" font-weight="700" letter-spacing="1.2" fill="#7A360E">SEVERAL DEVICES</text>
+<text x="32" y="76.2" font-size="24" font-weight="700" fill="#0E1726">Several AT25040B on one SPI bus</text>
+<text x="32" y="102.7" font-size="15" fill="#566070">Datasheet: 5 Serial Interface Description, Figure 5-1, p. 7; 5 Serial Interface</text>
+<text x="32" y="124.5" font-size="15" fill="#566070">Description, p. 6.</text>
+<rect x="32" y="140.4" width="576" height="1" fill="#E2E7EE"/>
+<path d="M390.5 194.6 L390.5 550.6" fill="none" stroke="#2B3442" stroke-width="2.2"/>
+<path d="M321 202.6 L390.5 202.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M321 316.6 L390.5 316.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M321 408.6 L390.5 408.6" fill="none" stroke="#2B3442" stroke-width="1.8" stroke-dasharray="5 4"/>
+<path d="M321 500.6 L390.5 500.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M477.5 194.6 L477.5 550.6" fill="none" stroke="#2B3442" stroke-width="2.2"/>
+<path d="M321 212.6 L477.5 212.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M321 326.6 L477.5 326.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M321 418.6 L477.5 418.6" fill="none" stroke="#2B3442" stroke-width="1.8" stroke-dasharray="5 4"/>
+<path d="M321 510.6 L477.5 510.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M564.5 194.6 L564.5 550.6" fill="none" stroke="#2B3442" stroke-width="2.2"/>
+<path d="M321 222.6 L564.5 222.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M321 336.6 L564.5 336.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M321 428.6 L564.5 428.6" fill="none" stroke="#2B3442" stroke-width="1.8" stroke-dasharray="5 4"/>
+<path d="M321 520.6 L564.5 520.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<rect x="32" y="186.6" width="289" height="96" rx="10" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="32" y="194.6" width="4" height="80" rx="2" fill="#2563EB"/>
+<rect x="32" y="300.6" width="289" height="74" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="32" y="308.6" width="4" height="58" rx="2" fill="#0B7A72"/>
+<rect x="32" y="392.6" width="289" height="74" rx="10" fill="#FFFFFF" stroke="#738093" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="32" y="484.6" width="289" height="74" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="32" y="492.6" width="4" height="58" rx="2" fill="#0B7A72"/>
+<rect x="32" y="580.6" width="576" height="108.6" rx="10" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="52" y="215.1" font-size="17" font-weight="700" fill="#1E429F">MCU</text>
+<text x="52" y="242.8" font-size="15" fill="#2B3442">SPI master, one select line per</text>
+<text x="52" y="264.6" font-size="15" fill="#2B3442">device</text>
+<text x="52" y="329.1" font-size="17" font-weight="700" fill="#0B5F59">AT25040B</text>
+<text x="52" y="356.8" font-size="15" fill="#2B3442">CS from SS0</text>
+<text x="52" y="421.1" font-size="17" font-weight="700" fill="#0E1726">…</text>
+<text x="52" y="448.8" font-size="15" fill="#2B3442">CS from SS1 and SS2</text>
+<text x="52" y="513.1" font-size="17" font-weight="700" fill="#0B5F59">AT25040B</text>
+<text x="52" y="540.8" font-size="15" fill="#2B3442">CS from SS3</text>
+<text x="390.5" y="186.6" font-size="14" font-weight="700" text-anchor="middle" fill="#0E1726">SCK</text>
+<circle cx="390.5" cy="202.6" r="3.6" fill="#2B3442"/>
+<circle cx="390.5" cy="316.6" r="3.6" fill="#2B3442"/>
+<circle cx="390.5" cy="408.6" r="3.6" fill="#2B3442"/>
+<circle cx="390.5" cy="500.6" r="3.6" fill="#2B3442"/>
+<text x="477.5" y="186.6" font-size="14" font-weight="700" text-anchor="middle" fill="#0E1726">SI (MOSI)</text>
+<circle cx="477.5" cy="212.6" r="3.6" fill="#2B3442"/>
+<circle cx="477.5" cy="326.6" r="3.6" fill="#2B3442"/>
+<circle cx="477.5" cy="418.6" r="3.6" fill="#2B3442"/>
+<circle cx="477.5" cy="510.6" r="3.6" fill="#2B3442"/>
+<text x="564.5" y="186.6" font-size="14" font-weight="700" text-anchor="middle" fill="#0E1726">SO (MISO)</text>
+<circle cx="564.5" cy="222.6" r="3.6" fill="#2B3442"/>
+<circle cx="564.5" cy="336.6" r="3.6" fill="#2B3442"/>
+<circle cx="564.5" cy="428.6" r="3.6" fill="#2B3442"/>
+<circle cx="564.5" cy="520.6" r="3.6" fill="#2B3442"/>
+<text x="46" y="609.1" font-size="17" font-weight="700" fill="#334155">Limits</text>
+<text x="46" y="629.5" font-size="15" fill="#334155">Each device has its own chip select; SCK, SI and SO are shared (5, p. 7).</text>
+<text x="46" y="651.2" font-size="15" fill="#334155">A device whose CS is high ignores SI and keeps SO in high impedance</text>
+<text x="46" y="673" font-size="15" fill="#334155">(5, p. 6).</text>
+</svg>

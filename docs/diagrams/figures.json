@@ -152,6 +152,57 @@
     "twin": false,
     "font": ""
   },
+  "read-transaction": {
+    "title": "READ instruction",
+    "alt": "One READ instruction of the AT25040B: CS low, the opcode with address bit A8, the low address byte on SI, then data bytes on SO from that address onwards until CS rises.",
+    "description": "The three lanes are CS, SI and SO, left to right in time, one field per byte. While CS is low the host sends on SI the opcode 0000 A011, whose bit 3 is address bit A8, and the address bits A7 to A0; the chip then sends on SO the byte at that address and the next ones. SO stays high impedance until the data and again after CS rises.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/read-transaction.timing.yml",
+    "sources": [
+      "docs/model/read-transaction.timing.yml"
+    ],
+    "kind": "timing",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
+  },
+  "spi-timing": {
+    "title": "SPI timing",
+    "alt": "SPI timing of the AT25040B in mode 0: CS low frames the transfer, SI is read on each rising SCK edge and SO changes after each falling edge, most significant bit first, with the Table 4-3 times for a 1.8 V to 5.5 V supply.",
+    "description": "The four lanes are CS, SCK, SI and SO, left to right in time. CS goes low, SCK idles low, the chip reads SI on the rising edge and drives SO after the falling edge, from bit 7 to bit 0; bits 4 and 3 are left out, and SO returns to high impedance after CS rises. The table gives each interval for the full supply range and the clock limit of each supply range.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/spi-timing.timing.yml",
+    "sources": [
+      "docs/model/spi-timing.timing.yml"
+    ],
+    "kind": "timing",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": true,
+    "font": ""
+  },
+  "spi-topology": {
+    "title": "Several AT25040B on one SPI bus",
+    "alt": "An SPI bus on which a microcontroller and several AT25040B share SCK, SI and SO, each device selected by its own chip select line from the host.",
+    "description": "The MCU on top and the AT25040B devices under it connect to the rails SCK, SI and SO on the right; the dashed card stands for the devices in between. Each AT25040B has its own CS from the MCU, and an unselected device ignores SI and keeps SO in high impedance.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/spi-topology.topology.yml",
+    "sources": [
+      "docs/model/spi-topology.topology.yml"
+    ],
+    "kind": "topology",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
+  },
   "write-path": {
     "title": "Write(), step by step",
     "alt": "Flowchart of Write: check the range, read the status until idle, refuse a block-protected range, release WP, then per 8-byte page WREN and a WEN check, WRITE, the write cycle wait, a WEN check and a read-back; WP is parked at the end, and each step names the error it can return.",

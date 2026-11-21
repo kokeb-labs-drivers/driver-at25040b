@@ -250,6 +250,58 @@ Drawn from:
 
 - [`docs/model/one-read-through-the-layers.seq.yml`](../model/one-read-through-the-layers.seq.yml)
 
+## READ instruction
+
+<!-- figure: read-transaction -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="read-transaction.dark.svg">
+  <img src="read-transaction.svg"
+    alt="One READ instruction of the AT25040B: CS low, the opcode with address bit A8, the low address byte
+    on SI, then data bytes on SO from that address onwards until CS rises.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/read-transaction.timing.yml`](../model/read-transaction.timing.yml)
+
+Drawn from:
+
+- [`docs/model/read-transaction.timing.yml`](../model/read-transaction.timing.yml)
+
+## SPI timing
+
+<!-- figure: spi-timing -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="spi-timing.dark.svg">
+  <img src="spi-timing.svg"
+    alt="SPI timing of the AT25040B in mode 0: CS low frames the transfer, SI is read on each rising SCK edge
+    and SO changes after each falling edge, most significant bit first, with the Table 4-3 times for a
+    1.8 V to 5.5 V supply.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/spi-timing.timing.yml`](../model/spi-timing.timing.yml)
+
+Drawn from:
+
+- [`docs/model/spi-timing.timing.yml`](../model/spi-timing.timing.yml)
+
+## Several AT25040B on one SPI bus
+
+<!-- figure: spi-topology -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="spi-topology.dark.svg">
+  <img src="spi-topology.svg"
+    alt="An SPI bus on which a microcontroller and several AT25040B share SCK, SI and SO, each device
+    selected by its own chip select line from the host.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/spi-topology.topology.yml`](../model/spi-topology.topology.yml)
+
+Drawn from:
+
+- [`docs/model/spi-topology.topology.yml`](../model/spi-topology.topology.yml)
+
 ## Write(), step by step
 
 <!-- figure: write-path -->
